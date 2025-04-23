@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,12 +90,89 @@ namespace BikeRentalApplication.Model
             }
         }
 
+        public static string GetUserRole(string username)
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                string result = "user";
+                User User = db.Users.FirstOrDefault(u => u.UserName == username);
+                if (User.UserStatus == "Админ")
+                    result = "admin";
+                return result;
+            }
+        }
+
         public static bool AuthenticateUser(string username, string password)
         {
              using (ApplicationContext db = new ApplicationContext())
             {
                 bool result = false;
                 result = db.Users.Any(el => el.UserName == username && el.Password == password);
+                return result;
+            }
+        }
+        public static bool CreateBike(string name, string description, string imagePath, decimal price)
+        {
+            bool result = false;
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                bool checkIsExist = db.Bikes.Any(el => el.Name == name);
+                if (!checkIsExist)
+                {
+                    Bike newBike = new Bike()
+                    {
+                        Name = name,
+                        Description = description,
+                        ImagePath = imagePath,
+                        Price = price
+                    };
+                    db.Bikes.Add(newBike);
+                    db.SaveChanges();
+                    result = true;
+                }
+            }
+            return result;
+        }
+        public static bool DeleteBike(Bike bike)
+        {
+            bool result = false;
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                bool checkIsExist = db.Bikes.Any(id => id.Name == bike.Name);
+                if(checkIsExist)
+                {
+                    db.Bikes.Remove(bike);
+                    db.SaveChanges();
+                    result = true;
+                }
+                return result;
+            }
+
+        }
+
+        public static bool EditBike(Bike oldBike, string newName, string newDescription, string newImagePath, decimal newPrice)
+        {
+            bool result = false;
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                Bike Bike = db.Bikes.FirstOrDefault(el => el.Id == oldBike.Id);
+                if(Bike != null)
+                {
+                    Bike.Name = newName;
+                    Bike.Description = newDescription;
+                    Bike.ImagePath = newImagePath;
+                    Bike.Price = newPrice;
+                    db.SaveChanges();
+                    result = true;
+                }
+            }
+            return result;
+        }
+        public static List<Bike> GetAllBikes()
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                var result = db.Bikes.ToList();
                 return result;
             }
         }

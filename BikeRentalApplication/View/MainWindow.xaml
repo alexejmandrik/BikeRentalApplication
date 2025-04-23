@@ -52,7 +52,7 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
                 <Ellipse Width="40" Height="40" VerticalAlignment="Center">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/View/Logo.png" Stretch="Uniform"/>
+                        <ImageBrush ImageSource="/Resources/Logo.png" Stretch="Uniform"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <TextBlock Text="Велопрокат" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -73,7 +73,27 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <Border BorderBrush="Black" BorderThickness="0,1,0,0" VerticalAlignment="Top" Margin="0"/>
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Bikes}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10" Width="300">
+                                <StackPanel>
+                                    <Image Source="{Binding ImagePath}" Height="250" Stretch="UniformToFill" Margin="0,0,0,10"/>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Description}" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0:C}'}" FontSize="14" Foreground="DarkGreen" TextAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>

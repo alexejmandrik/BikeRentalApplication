@@ -5,6 +5,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using BikeRentalApplication.Model;
 using BikeRentalApplication.View;
+
 namespace BikeRentalApplication.View
 {
     public partial class Auth : Window
@@ -31,12 +32,25 @@ namespace BikeRentalApplication.View
 
             bool isAuthenticated = DataWorker.AuthenticateUser(username, password);
 
+            // ВХОД ЮЗЕР АДМИН
             if (isAuthenticated)
             {
+
                 StatusTextBlock.Foreground = Brushes.Green;
                 StatusTextBlock.Text = "Вход выполнен успешно!";
                 MessageBox.Show($"Добро пожаловать, {username}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
+
+                string role = DataWorker.GetUserRole(username);
+                if (role == "user")
+                {
+                    // USER PAge
+                }
+                else
+                {
+                    Admin adminPage = new Admin();
+                    adminPage.ShowDialog();
+                }
             }
             else
             {

@@ -1,8 +1,10 @@
 ﻿using BikeRentalApplication.View;
 using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using BikeRentalApplication.Model;
 
 namespace BikeRentalApp.View
 {
@@ -11,9 +13,13 @@ namespace BikeRentalApp.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<Bike> Bikes { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            List<Bike> bikesFromDb = DataWorker.GetAllBikes();
+            Bikes = new ObservableCollection<Bike>(bikesFromDb);
+            this.DataContext = this;
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {

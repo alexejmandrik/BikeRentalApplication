@@ -10,8 +10,6 @@
 
   <ItemGroup>
     <None Remove="Resources\Logo.png" />
-    <None Remove="View\Logo.png" />
-    <None Remove="View\MainBike.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +28,6 @@
 
   <ItemGroup>
     <Resource Include="Resources\Logo.png" />
-    <Resource Include="View\Logo.png" />
-    <Resource Include="View\MainBike.jpg" />
   </ItemGroup>
 
 </Project>
