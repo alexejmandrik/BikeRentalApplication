@@ -68,13 +68,13 @@
                 <Button Content="Бонусы" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
                 <Button Content="Карта" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
                 <Button Content="Избранное" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
-                <Button Content="Войти" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Click="LoginButton_Click"/>
+                <Button Content="Войти" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenAuthWindow}"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1">
             <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding Bikes}">
+                <ItemsControl x:Name="ViewAllBikes" ItemsSource="{Binding AllBikes}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />

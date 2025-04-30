@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using BikeRentalApplication.Model;
+using BikeRentalApplication.ViewModel;
+using System.Windows.Controls;
 
 namespace BikeRentalApp.View
 {
@@ -13,18 +15,13 @@ namespace BikeRentalApp.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<Bike> Bikes { get; set; }
+        public static ItemsControl AllBikesView;
         public MainWindow()
         {
             InitializeComponent();
-            List<Bike> bikesFromDb = DataWorker.GetAllBikes();
-            Bikes = new ObservableCollection<Bike>(bikesFromDb);
-            this.DataContext = this;
-        }
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            Auth authWindow = new Auth();
-            authWindow.ShowDialog();
+            DataContext = new DataManageVM();
+            AllBikesView = ViewAllBikes;
+
         }
     }
 

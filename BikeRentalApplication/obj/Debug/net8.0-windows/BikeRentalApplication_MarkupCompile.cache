@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\App.xaml
-3-1063214563
+6-122367914
 
-13-1148156164
+18-201080146
 236-843050326
-View\Admin.xaml;View\Auth.xaml;View\MainWindow.xaml;
+View\AddBikeWindow.xaml;View\AdminWindow.xaml;View\AuthWindow.xaml;View\DeleteBikeWindow.xaml;View\EditBikeWindow.xaml;View\MainWindow.xaml;
 
 False
 

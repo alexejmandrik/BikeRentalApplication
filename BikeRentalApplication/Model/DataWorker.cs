@@ -80,9 +80,6 @@ namespace BikeRentalApplication.Model
 
         public static List<User> GetAllUsers()
         {
-
-            // Допилить ТОЛЬКО для админа
-
             using (ApplicationContext db = new ApplicationContext())
             {
                 var result = db.Users.ToList();
