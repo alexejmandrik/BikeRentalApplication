@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BikeRentalApplication.View"
         mc:Ignorable="d"
-        Title="EditBikeWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="EditBikeWindow" Height="450" Width="800"
+        Name="EditBikeWind"
+        ResizeMode="CanMinimize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="TitleTextBlock" Grid.Row="0" Text="Редактирование велосипеда" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <Grid Grid.Row="1">
+
+            <StackPanel x:Name="AddBikePanel">
+                <Label Content="Название:"/>
+                <TextBox Name="NameBlock" Text="{Binding BikeName}" Margin="0,0,0,10"/>
+
+                <Label Content="Описание:"/>
+                <TextBox Name="DescriptionBlock" Text="{Binding BikeDescription}" Margin="0,0,0,10"/>
+
+                <Label Content="Путь к фото:"/>
+                <TextBox Name="PathBlock" Text="{Binding BikeImagePath}" Margin="0,0,0,10"/>
+
+                <Label Content="Цена:"/>
+                <TextBox Name="PriceBlock" PreviewTextInput="PrewiewTextInput" Text="{Binding BikePrice}" Margin="0,0,0,10"/>
+
+                <Button Content="Редактировать" Command="{Binding EditBike}" CommandParameter="{Binding ElementName = EditBikeWind}" Padding="10,5" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,15,0,0">
+            <TextBlock x:Name="StatusTextBlock" Foreground="Red" HorizontalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
     </Grid>
 </Window>

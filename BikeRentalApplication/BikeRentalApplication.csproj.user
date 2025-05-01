@@ -11,9 +11,6 @@
     <Compile Update="View\AuthWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\DeleteBikeWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\EditBikeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

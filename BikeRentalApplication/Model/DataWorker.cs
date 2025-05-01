@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using BikeRentalApplication.Model.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace BikeRentalApplication.Model
 { 
@@ -24,10 +25,11 @@ namespace BikeRentalApplication.Model
                         Name = name,
                         Surname = surname,
                         Patronymic = patronymic,
-                        PhoneNumber = phoneNumber, 
-                        Password = password,
+                        PhoneNumber = phoneNumber,
+                        Password = PasswordService.HashPassword(password),
                         UserStatus = userStatus
                     };
+                    
                     db.Users.Add(newUser);
                     db.SaveChanges();
                     result = true;
@@ -54,9 +56,6 @@ namespace BikeRentalApplication.Model
 
         public static bool EditUser(User oldUser, string NewUserName, string NewName, string NewSurname, string NewPatronymic, string NewPhoneNumber, string NewPassword, string NewUserStatus)
         {
-
-            // Допилить ТОЛЬКО для админа
-
             bool result = false;
             using (ApplicationContext db = new ApplicationContext())
             {
@@ -87,25 +86,40 @@ namespace BikeRentalApplication.Model
             }
         }
 
+        public static bool SearchUserByUserName(string username)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                bool result = false;
+                User user = db.Users.FirstOrDefault(u => u.UserName == username);
+                if (user != null)
+                    result = true;
+                return result;
+            }
+        }
+
         public static string GetUserRole(string username)
         {
             using(ApplicationContext db = new ApplicationContext())
             {
                 string result = "user";
                 User User = db.Users.FirstOrDefault(u => u.UserName == username);
-                if (User.UserStatus == "Админ")
+                if (User.UserStatus == "admin")
                     result = "admin";
                 return result;
             }
         }
 
-        public static bool AuthenticateUser(string username, string password)
+        public static bool AuthenticateUser(string userName, string password)
         {
-             using (ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
-                bool result = false;
-                result = db.Users.Any(el => el.UserName == username && el.Password == password);
-                return result;
+                var user = db.Users.FirstOrDefault(u => u.UserName == userName);
+                if (user == null) return false;
+
+                var passwordHasher = new PasswordHasher<User>();
+                var result = passwordHasher.VerifyHashedPassword(user, user.Password, password);
+                return result == PasswordVerificationResult.Success;
             }
         }
         public static bool CreateBike(string name, string description, string imagePath, decimal price)

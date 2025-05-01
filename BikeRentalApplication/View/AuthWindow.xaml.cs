@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -11,13 +12,12 @@ namespace BikeRentalApplication.View
 {
     public partial class AuthWindow : Window
     {
-        private bool isRegisterMode = false;
-
         public AuthWindow()
         {
             InitializeComponent();
         }
-
+        #region
+        private bool isRegisterMode = false;
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             StatusTextBlock.Text = "";
@@ -33,14 +33,12 @@ namespace BikeRentalApplication.View
 
             bool isAuthenticated = DataWorker.AuthenticateUser(username, password);
 
-            // ВХОД ЮЗЕР АДМИН
             if (isAuthenticated)
             {
 
                 StatusTextBlock.Foreground = Brushes.Green;
                 StatusTextBlock.Text = "Вход выполнен успешно!";
                 MessageBox.Show($"Добро пожаловать, {username}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.DialogResult = true;
 
                 string role = DataWorker.GetUserRole(username);
                 if (role == "user")
@@ -61,11 +59,6 @@ namespace BikeRentalApplication.View
                 LoginPasswordBox.Clear();
             }
         }
-
-
-        // при нажатии на РЕГИСТРАЦИЯ 
-        // ПЕРЕПИСАТЬ под атрибуты
-
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             StatusTextBlock.Text = "";
@@ -87,6 +80,28 @@ namespace BikeRentalApplication.View
                 StatusTextBlock.Text = "Все поля регистрации обязательны.";
                 return;
             }
+            if (DataWorker.SearchUserByUserName(username))
+            {
+                StatusTextBlock.Foreground = Brushes.Red;
+                StatusTextBlock.Text = "Пользователь с таким логином уже существует.";
+                return;
+            }
+
+            if (Name.Any(char.IsDigit) || Surname.Any(char.IsDigit) || Patronymic.Any(char.IsDigit))
+            {
+                StatusTextBlock.Foreground = Brushes.Red;
+                StatusTextBlock.Text = "ФИО не должно содержать цифры.";
+                return;
+            }
+
+            string phonePattern = @"^\+375\d{9}$";
+
+            if (!Regex.IsMatch(phoneNumber, phonePattern))
+            {
+                StatusTextBlock.Foreground = Brushes.Red;
+                StatusTextBlock.Text = "Номер телефона должен начинаться с +375 и содержать 9 цифр после.";
+                return;
+            }
 
             if (password != confirmPassword)
             {
@@ -103,6 +118,7 @@ namespace BikeRentalApplication.View
                 StatusTextBlock.Text = "Пароль должен быть не менее 6 символов.";
                 return;
             }
+            
 
             bool isRegistered = DataWorker.CreateUser(username, Name, Surname, Patronymic, phoneNumber, password, userStatus);
 
@@ -119,8 +135,6 @@ namespace BikeRentalApplication.View
                 StatusTextBlock.Text = "Ошибка регистрации. Возможно, такой логин уже занят.";
             }
         }
-
-        // Переход между окнами ВОЙТИ и РЕГИСТРАЦИЯ
         private void SwitchLink_Click(object sender, RoutedEventArgs e)
         {
             isRegisterMode = !isRegisterMode;
@@ -169,7 +183,7 @@ namespace BikeRentalApplication.View
             RegisterNameTextBox.Clear();
             RegisterSurnameTextBox.Clear();
             RegisterPatronymicTextBox.Clear();
-            RegisterPhoneTextBox.Clear();    
+            RegisterPhoneTextBox.Clear();
             RegisterPasswordBox.Clear();
             RegisterConfirmPasswordBox.Clear();
         }
@@ -177,4 +191,5 @@ namespace BikeRentalApplication.View
         private static System.Collections.Generic.Dictionary<string, string> registeredUsers =
             new System.Collections.Generic.Dictionary<string, string>();
     }
+#endregion
 }

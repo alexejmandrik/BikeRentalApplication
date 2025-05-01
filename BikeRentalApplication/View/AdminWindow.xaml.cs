@@ -22,10 +22,12 @@ namespace BikeRentalApplication.View
     /// </summary>
     public partial class AdminWindow : Window
     {
+        public static ItemsControl AllBikesView;
         public AdminWindow()
         {
             InitializeComponent();
             DataContext = new DataManageVM();
+            AllBikesView = ViewAllBikes;
         }
         public class BoolToTextDecorationConverter : IValueConverter
         {

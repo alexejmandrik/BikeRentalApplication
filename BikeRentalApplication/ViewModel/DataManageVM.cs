@@ -11,7 +11,6 @@ namespace BikeRentalApplication.ViewModel
 {
     public class DataManageVM : INotifyPropertyChanged
     {
-        // Все велосипеды
         private List<Bike> allBikes = DataWorker.GetAllBikes();
         public List<Bike> AllBikes
         {
@@ -23,34 +22,23 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
-        // Открытия окон
-        #region METHODS TO OPEN WINDOW
 
-        // Авторизация/регистрация
+        #region METHODS TO OPEN WINDOW
         private void OpenAuthWindowMethod()
         {
             AuthWindow authWindow = new AuthWindow();
             SetCenterPositionAndOpen(authWindow);
         }
-        // MAIN админ
         private void OpenAdminWindowMethod()
         {
             AdminWindow adminWindow = new AdminWindow();
             SetCenterPositionAndOpen(adminWindow);
         }
-        // Добавление велосипеда
         private void OpenAddBikeWindowMethod()
         {
             AddBikeWindow addBikeWindow = new AddBikeWindow();
             SetCenterPositionAndOpen(addBikeWindow);
         }
-        // Удаление велосипеда
-        private void OpenDeleteBikeWindowMethod()
-        {
-            DeleteBikeWindow deleteBikeWindow = new DeleteBikeWindow();
-            SetCenterPositionAndOpen(deleteBikeWindow);
-        }
-        // Изменение велосипеда
         private void OpenEditBikeWindowMethod()
         {
             EditBikeWindow editBikeWindow = new EditBikeWindow();
@@ -58,11 +46,9 @@ namespace BikeRentalApplication.ViewModel
         }
         #endregion
 
-        // Команды октрытия 
         #region COMMANDS TO OPEN WINDOWS
         private RelayCommand openAuthWindow;
         private RelayCommand openAddBikeWindow;
-        private RelayCommand openDeleteBikeWindow;
         private RelayCommand openEditBikeWindow;
         public RelayCommand OpenAuthWindow
         {
@@ -85,22 +71,11 @@ namespace BikeRentalApplication.ViewModel
             }
         }
        
-        public RelayCommand OpenDeleteBikeWindow
-        {
-            get
-            {
-                return openDeleteBikeWindow ?? new RelayCommand(obj =>
-                {
-                    OpenDeleteBikeWindowMethod();
-                });
-            }
-        }
-       
         public RelayCommand OpenEditBikeWindow
         {
             get
             {
-                return openAddBikeWindow ?? new RelayCommand(obj =>
+                return openEditBikeWindow ?? new RelayCommand(obj =>
                 {
                     OpenEditBikeWindowMethod();
                 });
@@ -108,7 +83,10 @@ namespace BikeRentalApplication.ViewModel
         }
         #endregion
 
-        public  string BikeName { get; set; }
+        public static Bike SelectedBike { get; set; }
+        public static Bike SelectedUser { get; set; }
+
+        public string BikeName { get; set; }
         public  string BikeDescription { get; set; }
         public  string BikeImagePath { get; set; }
         public decimal BikePrice{ get; set; }
@@ -122,13 +100,16 @@ namespace BikeRentalApplication.ViewModel
                 {
                     Window wnd = obj as Window;
                     bool resultStr = false;
+                    bool valid = true;
                     if (BikeName == null || BikeName.Replace(" ", "").Length == 0)
                     {
                         SetRedBlockControl(wnd, "NameBlock");
+                        valid = false;
                     }
                     if(BikeDescription == null || BikeDescription.Replace(" ", "").Length == 0)
                     {
                         SetRedBlockControl(wnd, "DescriptionBlock");
+                        valid = false;
                     }
                     if (BikeImagePath == null || BikeImagePath.Replace(" ", "").Length == 0)
                     {
@@ -138,25 +119,99 @@ namespace BikeRentalApplication.ViewModel
 
 
                         SetRedBlockControl(wnd, "PathBlock");
+                        valid = false;
                     }
                     if( BikePrice == 0)
                     {
                         SetRedBlockControl(wnd, "PriceBlock");
+                        valid = false;
                     }
-                    else
+                    if (valid)
                     {
                         resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeImagePath, BikePrice);
-                        //UpdateAllDataViews();
-                        SetNullValuesAddBikeView();
-                        MessageBox.Show("Успешно добавлено!");                        
+                        UpdateAdminView();
+                        SetNullValuesBikeView();
+                        MessageBox.Show("Успешно добавлено!");
                         wnd.Close();
                     }
+                    else
+                        return;
                 }
                 );
             }
         }
 
-        private void SetNullValuesAddBikeView()
+        private RelayCommand deleteItem;
+        public RelayCommand DeleteItem
+        {
+            get
+            {
+                return deleteItem ?? new RelayCommand(obj =>
+                {
+                    bool resultStr = false;
+                    if (SelectedBike != null)
+                    {
+                        resultStr = DataWorker.DeleteBike(SelectedBike);
+                        UpdateAdminView();
+                    }
+                    SetNullValuesBikeView();
+                }
+               );
+            }
+        }
+
+        private RelayCommand editBike;
+        public RelayCommand EditBike
+        {
+            get
+            {
+                return editBike ?? new RelayCommand(obj =>
+                {
+                    Window wnd = obj as Window;
+                    bool resultStr = false;
+                    bool valid = true;
+                    if (BikeName == null || BikeName.Replace(" ", "").Length == 0)
+                    {
+                        SetRedBlockControl(wnd, "NameBlock");
+                        valid = false;
+                    }
+                    if (BikeDescription == null || BikeDescription.Replace(" ", "").Length == 0)
+                    {
+                        SetRedBlockControl(wnd, "DescriptionBlock");
+                        valid = false;
+                    }
+                    if (BikeImagePath == null || BikeImagePath.Replace(" ", "").Length == 0)
+                    {
+
+
+                        // Проверка, подгрузилась ли картинка и если нет, то вставить дефолтную картинку типо НЕТ ФОТО
+
+
+                        SetRedBlockControl(wnd, "PathBlock");
+                        valid = false;
+                    }
+                    if (BikePrice == 0)
+                    {
+                        SetRedBlockControl(wnd, "PriceBlock");
+                        valid = false;
+                    }
+                    if (valid)
+                    {
+                        resultStr = DataWorker.EditBike(SelectedBike, BikeName, BikeDescription, BikeImagePath, BikePrice);
+                        UpdateAdminView();
+                        SetNullValuesBikeView();
+                        MessageBox.Show("Успешно изменено!");
+                        wnd.Close();
+                    }
+                    else
+                        return;
+                });
+
+            }
+        }
+
+
+        private void SetNullValuesBikeView()
         {
             BikeName = null;
             BikeDescription = null;
@@ -169,23 +224,20 @@ namespace BikeRentalApplication.ViewModel
             Control block = wnd.FindName(blockName) as Control;
             block.BorderBrush = Brushes.Red;
         }
-   
+    
 
-        /*#region UPDATE VIEWS
-        private void UpdateAllDataViews()
-        {
-            UpdateAllBikeView();
-        }
 
-        private void UpdateAllBikeView()
+        #region UPDATE VIEWS
+
+        private void UpdateAdminView()
         {
             AllBikes = DataWorker.GetAllBikes();
-            MainWindow.AllBikesView.ItemsSource = null;
-            MainWindow.AllBikesView.Items.Clear();
-            MainWindow.AllBikesView.ItemsSource = AllBikes;
-            MainWindow.AllBikesView.Items.Refresh();
+            AdminWindow.AllBikesView.ItemsSource = null;
+            AdminWindow.AllBikesView.Items.Clear();
+            AdminWindow.AllBikesView.ItemsSource = AllBikes;
+            AdminWindow.AllBikesView.Items.Refresh();
         }
-        #endregion*/
+        #endregion
 
         public void SetCenterPositionAndOpen(Window window)
         {

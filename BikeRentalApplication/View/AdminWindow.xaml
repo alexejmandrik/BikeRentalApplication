@@ -112,6 +112,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                <Button Content="Пользователи" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
                 <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
             </StackPanel>
         </Grid>
@@ -120,17 +121,65 @@
             <!-- Серая подложка для кнопок -->
             <StackPanel Orientation="Horizontal">
                 <Button Content="Добавить велосипед" Style="{StaticResource AdminActionButtonStyle}"  Command="{Binding OpenAddBikeWindow}"/>
-                <Button Content="Удалить велосипед" Style="{StaticResource AdminActionButtonStyle}"/>
-                <Button Content="Изменить статус" Style="{StaticResource AdminActionButtonStyle}"/>
-                <Button Content="Заблокировать пользователя" Style="{StaticResource AdminActionButtonStyle}"/>
+                <Button Content="Удалить велосипед" Style="{StaticResource AdminActionButtonStyle}" Command="{Binding DeleteItem}"/>
+                <Button Content="Изменить велосипед" Style="{StaticResource AdminActionButtonStyle}" Command="{Binding OpenEditBikeWindow}"/>
                 <!-- Добавьте другие кнопки по необходимости -->
             </StackPanel>
         </Border>
 
-        <!-- Основная область контента (форма добавления велосипеда по умолчанию) -->
         <Grid Grid.Row="2" Margin="10">
-            <!-- Используем ContentControl для динамической смены содержимого (формы) -->
-            <!-- Пока что просто разместим форму добавления велосипеда -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox x:Name="ViewAllBikes"
+              ItemsSource="{Binding AllBikes}"
+              SelectedItem="{Binding SelectedBike, Mode=TwoWay}"
+              SelectionMode="Single"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    BorderThickness="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10" Width="300">
+                                <StackPanel>
+                                    <Image Source="{Binding ImagePath}" Height="250" Stretch="UniformToFill" Margin="0,0,0,10"/>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxHeight="60" Margin="0,5,0,5" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0:C}'}" FontSize="14" Foreground="DarkGreen" TextAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect ShadowDepth="0" Color="DodgerBlue" Opacity="1" BlurRadius="10"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>
