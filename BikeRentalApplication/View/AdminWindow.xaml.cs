@@ -27,13 +27,6 @@ namespace BikeRentalApplication.View
             InitializeComponent();
             DataContext = new DataManageVM();
         }
-
-       /* private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            AuthWindow MainWindow = new AuthWindow();
-            MainWindow.Show();
-            this.Close();
-        }*/
         public class BoolToTextDecorationConverter : IValueConverter
         {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

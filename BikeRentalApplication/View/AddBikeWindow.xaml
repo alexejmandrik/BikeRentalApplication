@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Добавление велосипеда" Height="400" Width="550"
     WindowStartupLocation="CenterScreen"
-        Name="AddNewBikeWind"
+        Name="AddBikeWind"
         ResizeMode="CanMinimize">
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -31,9 +31,9 @@
                 <TextBox Name="PathBlock" Text="{Binding BikeImagePath}" Margin="0,0,0,10"/>
 
                 <Label Content="Цена:"/>
-                <TextBox Name="PriceBlock" Text="{Binding BikePrice}" Margin="0,0,0,10"/>
+                <TextBox Name="PriceBlock" PreviewTextInput="PrewiewTextInput" Text="{Binding BikePrice}" Margin="0,0,0,10"/>
 
-                <Button Content="Добавить" Command="{Binding AddNewBike}" CommandParameter="{Binding ElementName}" Padding="10,5" HorizontalAlignment="Stretch"/>
+                <Button Content="Добавить" Command="{Binding AddNewBike}" CommandParameter="{Binding ElementName = AddBikeWind}" Padding="10,5" HorizontalAlignment="Stretch"/>
             </StackPanel>
         </Grid>
 

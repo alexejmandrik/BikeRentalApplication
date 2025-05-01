@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -112,9 +108,9 @@ namespace BikeRentalApplication.ViewModel
         }
         #endregion
 
-        public string BikeName { get; set; }
-        public string BikeDescription { get; set; }
-        public string BikeImagePath { get; set; }
+        public  string BikeName { get; set; }
+        public  string BikeDescription { get; set; }
+        public  string BikeImagePath { get; set; }
         public decimal BikePrice{ get; set; }
 
         private RelayCommand addNewBike;
@@ -126,7 +122,6 @@ namespace BikeRentalApplication.ViewModel
                 {
                     Window wnd = obj as Window;
                     bool resultStr = false;
-                    MessageBox.Show("Пшол нах");
                     if (BikeName == null || BikeName.Replace(" ", "").Length == 0)
                     {
                         SetRedBlockControl(wnd, "NameBlock");
@@ -150,17 +145,24 @@ namespace BikeRentalApplication.ViewModel
                     }
                     else
                     {
-                       
-                        //resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeImagePath, BikePrice);
+                        resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeImagePath, BikePrice);
                         //UpdateAllDataViews();
+                        SetNullValuesAddBikeView();
+                        MessageBox.Show("Успешно добавлено!");                        
+                        wnd.Close();
                     }
                 }
                 );
             }
         }
 
-
-        // Говно искоючение
+        private void SetNullValuesAddBikeView()
+        {
+            BikeName = null;
+            BikeDescription = null;
+            BikeImagePath = null;
+            BikePrice = 0;
+        }
 
         public void SetRedBlockControl(Window wnd, string blockName)
         {
@@ -169,7 +171,7 @@ namespace BikeRentalApplication.ViewModel
         }
    
 
-        #region UPDATE VIEWS
+        /*#region UPDATE VIEWS
         private void UpdateAllDataViews()
         {
             UpdateAllBikeView();
@@ -183,7 +185,7 @@ namespace BikeRentalApplication.ViewModel
             MainWindow.AllBikesView.ItemsSource = AllBikes;
             MainWindow.AllBikesView.Items.Refresh();
         }
-        #endregion
+        #endregion*/
 
         public void SetCenterPositionAndOpen(Window window)
         {
