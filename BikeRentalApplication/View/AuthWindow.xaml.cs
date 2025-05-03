@@ -48,7 +48,7 @@ namespace BikeRentalApplication.View
                 }
                 else
                 {
-                    AdminWindow adminPage = new AdminWindow();
+                    AdminBikeWindow adminPage = new AdminBikeWindow();
                     adminPage.ShowDialog();
                 }
             }

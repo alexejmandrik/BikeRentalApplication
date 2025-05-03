@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BikeRentalApplication.Model
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public required string UserName { get; set; }
@@ -16,5 +16,6 @@ namespace BikeRentalApplication.Model
         public required string PhoneNumber { get; set; }
         public required string Password { get; set; }
         public required string UserStatus { get; set; }
+        public bool IsBlocked { get; set; }
     }
 }

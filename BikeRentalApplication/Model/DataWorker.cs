@@ -27,7 +27,8 @@ namespace BikeRentalApplication.Model
                         Patronymic = patronymic,
                         PhoneNumber = phoneNumber,
                         Password = PasswordService.HashPassword(password),
-                        UserStatus = userStatus
+                        UserStatus = userStatus,
+                        IsBlocked = false
                     };
                     
                     db.Users.Add(newUser);
@@ -70,6 +71,22 @@ namespace BikeRentalApplication.Model
                     User.PhoneNumber = NewPhoneNumber;
                     User.Password = NewPassword;
                     User.UserStatus = NewUserStatus;
+                    db.SaveChanges();
+                    result = true;
+                }
+            }
+            return result;
+        }
+        public static bool ChangeIsBlockedUser(User oldUser)
+        {
+            bool result = false;
+            using (ApplicationContext db = new ApplicationContext())
+            {
+
+                User User = db.Users.FirstOrDefault(u => u.Id == oldUser.Id);
+                if (User != null)
+                {
+                    User.IsBlocked = !User.IsBlocked;
                     db.SaveChanges();
                     result = true;
                 }

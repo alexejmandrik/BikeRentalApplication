@@ -9,7 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\CannondaleScalpel.png" />
+    <None Remove="Resources\Cube.jpg" />
+    <None Remove="Resources\CubeStereoOne22Pro.jpg" />
+    <None Remove="Resources\KTMUltraFun.jpg" />
     <None Remove="Resources\Logo.png" />
+    <None Remove="Resources\OrbeaAvantH60.jpg" />
+    <None Remove="Resources\OrbeaOIZ_H30.jpg" />
+    <None Remove="Resources\OrbeaORCA_M40.jpg" />
+    <None Remove="Resources\TrekMarlin5.jpg" />
+    <None Remove="Resources\TrekSlash9_9.jpg" />
+    <None Remove="Resources\TrekStache2017.jpg" />
+    <None Remove="Resources\TrekStache5.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +35,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\CannondaleScalpel.png" />
+    <Resource Include="Resources\Cube.jpg" />
+    <Resource Include="Resources\CubeStereoOne22Pro.jpg" />
+    <Resource Include="Resources\KTMUltraFun.jpg" />
     <Resource Include="Resources\Logo.png" />
+    <Resource Include="Resources\OrbeaAvantH60.jpg" />
+    <Resource Include="Resources\OrbeaOIZ_H30.jpg" />
+    <Resource Include="Resources\OrbeaORCA_M40.jpg" />
+    <Resource Include="Resources\TrekMarlin5.jpg" />
+    <Resource Include="Resources\TrekSlash9_9.jpg" />
+    <Resource Include="Resources\TrekStache2017.jpg" />
+    <Resource Include="Resources\TrekStache5.jpg" />
   </ItemGroup>
 
 </Project>

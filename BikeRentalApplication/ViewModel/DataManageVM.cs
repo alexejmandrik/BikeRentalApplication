@@ -31,7 +31,7 @@ namespace BikeRentalApplication.ViewModel
         }
         private void OpenAdminWindowMethod()
         {
-            AdminWindow adminWindow = new AdminWindow();
+            AdminBikeWindow adminWindow = new AdminBikeWindow();
             SetCenterPositionAndOpen(adminWindow);
         }
         private void OpenAddBikeWindowMethod()
@@ -232,10 +232,10 @@ namespace BikeRentalApplication.ViewModel
         private void UpdateAdminView()
         {
             AllBikes = DataWorker.GetAllBikes();
-            AdminWindow.AllBikesView.ItemsSource = null;
-            AdminWindow.AllBikesView.Items.Clear();
-            AdminWindow.AllBikesView.ItemsSource = AllBikes;
-            AdminWindow.AllBikesView.Items.Refresh();
+            AdminBikeWindow.AllBikesView.ItemsSource = null;
+            AdminBikeWindow.AllBikesView.Items.Clear();
+            AdminBikeWindow.AllBikesView.ItemsSource = AllBikes;
+            AdminBikeWindow.AllBikesView.Items.Refresh();
         }
         #endregion
 

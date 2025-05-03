@@ -5,7 +5,10 @@
     <Compile Update="View\AddBikeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\AdminWindow.xaml.cs">
+    <Compile Update="View\AdminBikeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\AdminUserWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\AuthWindow.xaml.cs">
