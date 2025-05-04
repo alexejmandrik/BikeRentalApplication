@@ -24,7 +24,7 @@ namespace BikeRentalApplication.View
         public AddBikeWindow()
         {
             InitializeComponent();
-            DataContext = new DataManageVM();
+            DataContext = new AdminVM();
         }
         private void PrewiewTextInput( object sender, System.Windows.Input.TextCompositionEventArgs e)
         {

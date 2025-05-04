@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using BikeRentalApp.View;
+using BikeRentalApplication.View;
 using BikeRentalApplication.Model;
 using BikeRentalApplication.View;
 

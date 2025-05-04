@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace BikeRentalApplication.Model
 {
+    public interface IPasswordSupplier
+    {
+        string GetPassword();
+    }
     public class PasswordService
     {
         private static PasswordHasher<object> hasher = new();

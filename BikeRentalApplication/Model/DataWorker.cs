@@ -115,6 +115,18 @@ namespace BikeRentalApplication.Model
             }
         }
 
+        public static bool CheckBlocking(string username)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                bool result = false;
+                User user = db.Users.FirstOrDefault(u => u.UserName == username);
+                if (user.IsBlocked)
+                    result = true;
+                return result;
+            }
+        }
+
         public static string GetUserRole(string username)
         {
             using(ApplicationContext db = new ApplicationContext())
