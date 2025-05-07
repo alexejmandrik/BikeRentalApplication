@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BikeRentalApplication.View;
 using BikeRentalApplication.Model;
-using BikeRentalApplication.View;
+
 
 namespace BikeRentalApplication.ViewModel
 {
@@ -22,238 +23,134 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
-
         #region METHODS TO OPEN WINDOW
         private void OpenAuthWindowMethod()
         {
             AuthWindow authWindow = new AuthWindow();
             SetCenterPositionAndOpen(authWindow);
         }
-        private void OpenAdminWindowMethod()
+
+        private void OpenMyBookingsWindowMethod()
         {
-            AdminBikeWindow adminWindow = new AdminBikeWindow();
-            SetCenterPositionAndOpen(adminWindow);
+            MyBookingsWindow myBookingsWindow = new MyBookingsWindow();
+            SetCenterPositionAndOpen(myBookingsWindow);
         }
-        private void OpenAddBikeWindowMethod()
+        private void OpenBikeBookingWindowMethod(Bike bikeToBook)
         {
-            AddBikeWindow addBikeWindow = new AddBikeWindow();
-            SetCenterPositionAndOpen(addBikeWindow);
-        }
-        private void OpenEditBikeWindowMethod()
-        {
-            EditBikeWindow editBikeWindow = new EditBikeWindow();
-            SetCenterPositionAndOpen(editBikeWindow);
+            if (bikeToBook == null)
+            {
+                MessageBox.Show("Велосипед для бронирования не выбран или не передан.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int userId = SessionManager.CurrentUser.Id;
+
+            BikeBookingVM bookingVM = new BikeBookingVM(bikeToBook, userId);
+
+            BikeBookingWindow bikeBookingWindow = new BikeBookingWindow();
+
+            bikeBookingWindow.DataContext = bookingVM;
+
+            EventHandler<bool?> requestCloseHandler = null;
+            requestCloseHandler = (s, dialogResult) => {
+                bookingVM.RequestClose -= requestCloseHandler; 
+                bikeBookingWindow.DialogResult = dialogResult;
+                // Если окно открыто через ShowDialog(), оно закроется само.
+                // Если через Show(), то можно добавить bikeBookingWindow.Close();
+            };
+            if (bookingVM.GetType().GetEvent("RequestClose") != null)
+            {
+                bookingVM.RequestClose += requestCloseHandler;
+            }
+
+
+            SetCenterPositionAndOpen(bikeBookingWindow);
         }
         #endregion
 
         #region COMMANDS TO OPEN WINDOWS
         private RelayCommand openAuthWindow;
-        private RelayCommand openAddBikeWindow;
-        private RelayCommand openEditBikeWindow;
+        private RelayCommand openBikeBookingWindow;
+        private RelayCommand openMyBookingsWindow;
         public RelayCommand OpenAuthWindow
         {
-            get {
-                return openAuthWindow ?? new RelayCommand(obj =>
+            get
             {
-                OpenAuthWindowMethod();
-            });
+                return openAuthWindow ?? (openAuthWindow = new RelayCommand(obj =>
+                {
+                    OpenAuthWindowMethod();
+                }));
             }
         }
-       
-        public RelayCommand OpenAddBikeWindow
+        public RelayCommand OpenBikeBookingWindow
         {
             get
             {
-                return openAddBikeWindow ?? new RelayCommand(obj =>
+                return openBikeBookingWindow ?? (openBikeBookingWindow = new RelayCommand(obj =>
                 {
-                    OpenAddBikeWindowMethod();
-                });
+                    Bike bike = obj as Bike;
+                    OpenBikeBookingWindowMethod(bike);
+                }));
             }
         }
-       
-        public RelayCommand OpenEditBikeWindow
+        public RelayCommand OpenMyBookingsWindow
         {
             get
             {
-                return openEditBikeWindow ?? new RelayCommand(obj =>
+                return openMyBookingsWindow ?? (openMyBookingsWindow = new RelayCommand(obj =>
                 {
-                    OpenEditBikeWindowMethod();
-                });
+                    OpenMyBookingsWindowMethod();
+                }));
             }
         }
         #endregion
 
         public static Bike SelectedBike { get; set; }
-        public static Bike SelectedUser { get; set; }
+        public static User SelectedUser { get; set; }
 
-        public string BikeName { get; set; }
-        public  string BikeDescription { get; set; }
-        public  string BikeImagePath { get; set; }
-        public decimal BikePrice{ get; set; }
+        private string _bikeName;
+        public string BikeName { get => _bikeName; set { _bikeName = value; NotifyPropertyChanged(nameof(BikeName)); } }
 
-        private RelayCommand addNewBike;
-        public RelayCommand AddNewBike
-        {
-            get
-            {
-                return addNewBike ?? new RelayCommand(obj =>
-                {
-                    Window wnd = obj as Window;
-                    bool resultStr = false;
-                    bool valid = true;
-                    if (BikeName == null || BikeName.Replace(" ", "").Length == 0)
-                    {
-                        SetRedBlockControl(wnd, "NameBlock");
-                        valid = false;
-                    }
-                    if(BikeDescription == null || BikeDescription.Replace(" ", "").Length == 0)
-                    {
-                        SetRedBlockControl(wnd, "DescriptionBlock");
-                        valid = false;
-                    }
-                    if (BikeImagePath == null || BikeImagePath.Replace(" ", "").Length == 0)
-                    {
+        private string _bikeDescription;
+        public string BikeDescription { get => _bikeDescription; set { _bikeDescription = value; NotifyPropertyChanged(nameof(BikeDescription)); } }
 
+        private string _bikeImagePath;
+        public string BikeImagePath { get => _bikeImagePath; set { _bikeImagePath = value; NotifyPropertyChanged(nameof(BikeImagePath)); } }
 
-                        // Проверка, подгрузилась ли картинка и если нет, то вставить дефолтную картинку типо НЕТ ФОТО
+        private decimal _bikePrice;
+        public decimal BikePrice { get => _bikePrice; set { _bikePrice = value; NotifyPropertyChanged(nameof(BikePrice)); } }
 
-
-                        SetRedBlockControl(wnd, "PathBlock");
-                        valid = false;
-                    }
-                    if( BikePrice == 0)
-                    {
-                        SetRedBlockControl(wnd, "PriceBlock");
-                        valid = false;
-                    }
-                    if (valid)
-                    {
-                        resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeImagePath, BikePrice);
-                        UpdateAdminView();
-                        SetNullValuesBikeView();
-                        MessageBox.Show("Успешно добавлено!");
-                        wnd.Close();
-                    }
-                    else
-                        return;
-                }
-                );
-            }
-        }
-
-        private RelayCommand deleteItem;
-        public RelayCommand DeleteItem
-        {
-            get
-            {
-                return deleteItem ?? new RelayCommand(obj =>
-                {
-                    bool resultStr = false;
-                    if (SelectedBike != null)
-                    {
-                        resultStr = DataWorker.DeleteBike(SelectedBike);
-                        UpdateAdminView();
-                    }
-                    SetNullValuesBikeView();
-                }
-               );
-            }
-        }
-
-        private RelayCommand editBike;
-        public RelayCommand EditBike
-        {
-            get
-            {
-                return editBike ?? new RelayCommand(obj =>
-                {
-                    Window wnd = obj as Window;
-                    bool resultStr = false;
-                    bool valid = true;
-                    if (BikeName == null || BikeName.Replace(" ", "").Length == 0)
-                    {
-                        SetRedBlockControl(wnd, "NameBlock");
-                        valid = false;
-                    }
-                    if (BikeDescription == null || BikeDescription.Replace(" ", "").Length == 0)
-                    {
-                        SetRedBlockControl(wnd, "DescriptionBlock");
-                        valid = false;
-                    }
-                    if (BikeImagePath == null || BikeImagePath.Replace(" ", "").Length == 0)
-                    {
-
-
-                        // Проверка, подгрузилась ли картинка и если нет, то вставить дефолтную картинку типо НЕТ ФОТО
-
-
-                        SetRedBlockControl(wnd, "PathBlock");
-                        valid = false;
-                    }
-                    if (BikePrice == 0)
-                    {
-                        SetRedBlockControl(wnd, "PriceBlock");
-                        valid = false;
-                    }
-                    if (valid)
-                    {
-                        resultStr = DataWorker.EditBike(SelectedBike, BikeName, BikeDescription, BikeImagePath, BikePrice);
-                        UpdateAdminView();
-                        SetNullValuesBikeView();
-                        MessageBox.Show("Успешно изменено!");
-                        wnd.Close();
-                    }
-                    else
-                        return;
-                });
-
-            }
-        }
-
-
-        private void SetNullValuesBikeView()
-        {
-            BikeName = null;
-            BikeDescription = null;
-            BikeImagePath = null;
-            BikePrice = 0;
-        }
 
         public void SetRedBlockControl(Window wnd, string blockName)
         {
+            if (wnd == null) return;
             Control block = wnd.FindName(blockName) as Control;
-            block.BorderBrush = Brushes.Red;
+            if (block != null)
+            {
+                block.BorderBrush = Brushes.Red;
+            }
         }
-    
-
-
-        #region UPDATE VIEWS
-
-        private void UpdateAdminView()
-        {
-            AllBikes = DataWorker.GetAllBikes();
-            AdminBikeWindow.AllBikesView.ItemsSource = null;
-            AdminBikeWindow.AllBikesView.Items.Clear();
-            AdminBikeWindow.AllBikesView.ItemsSource = AllBikes;
-            AdminBikeWindow.AllBikesView.Items.Refresh();
-        }
-        #endregion
 
         public void SetCenterPositionAndOpen(Window window)
         {
-            window.Owner = Application.Current.MainWindow;
+            // Пытаемся найти главное окно, если оно есть и не является открываемым окном
+            Window ownerWindow = Application.Current.MainWindow;
+            if (ownerWindow != null && ownerWindow == window)
+            {
+                ownerWindow = null;
+            }
+
+            window.Owner = ownerWindow; 
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            // if(PropertyChanged != null) // Проверка не обязательна с C# 6.0 'PropertyChanged?.Invoke(...)'
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -7,20 +7,23 @@ using System.Threading.Tasks;
 using System.Web;
 using BikeRentalApplication.Model.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeRentalApplication.Model
-{ 
-    class DataWorker
+{
+    public class DataWorker
     {
+        #region USER DB
         public static bool CreateUser(string userName, string name, string surname, string patronymic, string phoneNumber, string password, string userStatus)
         {
             bool result = false;
             using (ApplicationContext db = new ApplicationContext())
             {
                 bool checkIsExist = db.Users.Any(el => el.UserName == userName);
-                if(!checkIsExist)
+                if (!checkIsExist)
                 {
-                    User newUser = new User {
+                    User newUser = new User
+                    {
                         UserName = userName,
                         Name = name,
                         Surname = surname,
@@ -30,7 +33,7 @@ namespace BikeRentalApplication.Model
                         UserStatus = userStatus,
                         IsBlocked = false
                     };
-                    
+
                     db.Users.Add(newUser);
                     db.SaveChanges();
                     result = true;
@@ -45,7 +48,7 @@ namespace BikeRentalApplication.Model
             using (ApplicationContext db = new ApplicationContext())
             {
                 bool checkIsExist = db.Users.Any(el => el.UserName == user.UserName);
-                if(checkIsExist)
+                if (checkIsExist)
                 {
                     db.Users.Remove(user);
                     db.SaveChanges();
@@ -60,7 +63,7 @@ namespace BikeRentalApplication.Model
             bool result = false;
             using (ApplicationContext db = new ApplicationContext())
             {
-                
+
                 User User = db.Users.FirstOrDefault(u => u.Id == oldUser.Id);
                 if (User != null)
                 {
@@ -103,17 +106,26 @@ namespace BikeRentalApplication.Model
             }
         }
 
-        public static bool SearchUserByUserName(string username)
+        // В авторизации найден или нет
+        /*        public static bool SearchUserByUserName(string username)
+                {
+                    using (ApplicationContext db = new ApplicationContext())
+                    {
+                        bool result = false;
+                        User user = db.Users.FirstOrDefault(u => u.UserName == username);
+                        if (user != null)
+                            result = true;
+                        return result;
+                    }
+                }*/
+        public static User? GetUserByUsername(string userName)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                bool result = false;
-                User user = db.Users.FirstOrDefault(u => u.UserName == username);
-                if (user != null)
-                    result = true;
-                return result;
+                return db.Users.FirstOrDefault(u => u.UserName == userName);
             }
         }
+
 
         public static bool CheckBlocking(string username)
         {
@@ -129,7 +141,7 @@ namespace BikeRentalApplication.Model
 
         public static string GetUserRole(string username)
         {
-            using(ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
                 string result = "user";
                 User User = db.Users.FirstOrDefault(u => u.UserName == username);
@@ -151,6 +163,13 @@ namespace BikeRentalApplication.Model
                 return result == PasswordVerificationResult.Success;
             }
         }
+
+
+
+
+        #endregion
+
+        #region CRUD BIKE DB
         public static bool CreateBike(string name, string description, string imagePath, decimal price)
         {
             bool result = false;
@@ -176,10 +195,10 @@ namespace BikeRentalApplication.Model
         public static bool DeleteBike(Bike bike)
         {
             bool result = false;
-            using(ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
                 bool checkIsExist = db.Bikes.Any(id => id.Name == bike.Name);
-                if(checkIsExist)
+                if (checkIsExist)
                 {
                     db.Bikes.Remove(bike);
                     db.SaveChanges();
@@ -196,7 +215,7 @@ namespace BikeRentalApplication.Model
             using (ApplicationContext db = new ApplicationContext())
             {
                 Bike Bike = db.Bikes.FirstOrDefault(el => el.Id == oldBike.Id);
-                if(Bike != null)
+                if (Bike != null)
                 {
                     Bike.Name = newName;
                     Bike.Description = newDescription;
@@ -210,11 +229,90 @@ namespace BikeRentalApplication.Model
         }
         public static List<Bike> GetAllBikes()
         {
-            using(ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
                 var result = db.Bikes.ToList();
                 return result;
             }
         }
+
+        public static Bike? GetBikeById(int id)
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                return db.Bikes.FirstOrDefault(el => el.Id == id);
+            }
+        }
+
+        #endregion
+
+        #region CRUD BUKING
+        public static bool CreateBikeBooking(int userId, int bikeId, DateTime startDateTime, DateTime endDateTime, string? comment, string status, decimal price)
+        {
+            bool result = false;
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                // Проверка на пересечение по времени с другими бронями на этот велосипед
+                bool isOverlap = db.BikeBookings.Any(b =>
+                    b.BikeId == bikeId &&
+                    ((startDateTime >= b.StartDateTime && startDateTime < b.EndDateTime) ||
+                     (endDateTime > b.StartDateTime && endDateTime <= b.EndDateTime) ||
+                     (startDateTime <= b.StartDateTime && endDateTime >= b.EndDateTime)));
+
+                if (!isOverlap)
+                {
+                    BikeBooking newBooking = new BikeBooking
+                    {
+                        UserId = userId,
+                        BikeId = bikeId,
+                        StartDateTime = startDateTime,
+                        EndDateTime = endDateTime,
+                        Comment = comment,
+                        BookingStatus = status,
+                        Price = price
+                    };
+
+                    db.BikeBookings.Add(newBooking);
+                    db.SaveChanges();
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        public static bool DeleteBikeBooking(BikeBooking bikeBooking)
+        {
+            bool result = false;
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                bool checkIsExist = db.BikeBookings.Any(id => id.Id== bikeBooking.Id);
+                if (checkIsExist)
+                {
+                    db.BikeBookings.Remove(bikeBooking);
+                    db.SaveChanges();
+                    result = true;
+                }
+                return result;
+            }
+        }
+
+        public static List<BikeBooking> GetUserBookings(User user)
+        {
+            if (user == null)
+            {
+                return new List<BikeBooking>();
+            }
+
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.BikeBookings
+                            .Where(b => b.UserId == user.Id)
+                            .Include(b => b.Bike)
+                            .OrderByDescending(b => b.StartDateTime)
+                            .ToList();
+            }
+        }
+     
     }
+    #endregion
 }

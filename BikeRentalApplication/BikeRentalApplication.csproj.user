@@ -11,7 +11,13 @@
     <Compile Update="View\AuthWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\BikeBookingWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EditBikeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\MyBookingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

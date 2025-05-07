@@ -182,6 +182,7 @@ namespace BikeRentalApplication.ViewModel
             }
             if (isAuthenticated)
             {
+                SessionManager.CurrentUser = DataWorker.GetUserByUsername(LoginUsername);
                 StatusMessage = "Успешный вход.";
 
                 string result = DataWorker.GetUserRole(LoginUsername);

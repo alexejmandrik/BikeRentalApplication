@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\App.xaml
-51239708606
+7-625603209
 
-241040150169
+36-1791303776
 259-996112255
-View\AddBikeWindow.xaml;View\AdminBikeWindow.xaml;View\AuthWindow.xaml;View\EditBikeWindow.xaml;View\MainWindow.xaml;
+View\AddBikeWindow.xaml;View\AdminBikeWindow.xaml;View\AuthWindow.xaml;View\BikeBookingWindow.xaml;View\EditBikeWindow.xaml;View\MainWindow.xaml;View\MyBookingsWindow.xaml;
 
 False
 

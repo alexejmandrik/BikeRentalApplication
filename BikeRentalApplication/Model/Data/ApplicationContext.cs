@@ -11,6 +11,7 @@ namespace BikeRentalApplication.Model.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Bike> Bikes { get; set; }
+        public DbSet<BikeBooking> BikeBookings { get; set; }
         public ApplicationContext()
         {
             Database.EnsureCreated();

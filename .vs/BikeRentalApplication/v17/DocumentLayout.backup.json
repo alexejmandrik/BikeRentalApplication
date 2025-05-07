@@ -3,80 +3,76 @@
   "WorkspaceRootPath": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\adminbikewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\adminbikewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\adminbikewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\adminbikewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\viewmodel\\authvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\viewmodel\\authvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\viewmodel\\adminvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\viewmodel\\adminvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\viewmodel\\mybookingsvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\viewmodel\\mybookingsvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\model\\dataworker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\model\\dataworker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\editbikewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\editbikewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\editbikewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\editbikewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\mybookingswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\mybookingswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\viewmodel\\datamanagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\viewmodel\\datamanagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\authwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\authwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\addbikewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\addbikewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\addbikewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\addbikewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\bikebookingwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\bikebookingwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\authwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\authwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\converter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\converter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\mybookingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\mybookingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\helpers\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\helpers\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\model\\bike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\model\\bike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Migrations\\20250506161520_UpdateBikeBooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BikeRentalApplication\\Migrations\\20250506161520_UpdateBikeBooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\viewmodel\\bikebookingvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\viewmodel\\bikebookingvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Migrations\\20250506153728_AddBookingStatusToBikeBooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BikeRentalApplication\\Migrations\\20250506153728_AddBookingStatusToBikeBooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\model\\sessionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\model\\sessionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\viewmodel\\authvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\viewmodel\\authvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\view\\bikebookingwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\view\\bikebookingwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\model\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\model\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|d:\\visual_lab_4sem\\oop\\bikerentalapplication\\bikerentalapplication\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1D1A8550-A69C-426B-A637-FC43CB022BC0}|BikeRentalApplication\\BikeRentalApplication.csproj|solutionrelative:bikerentalapplication\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,21 +82,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 275,
-          "SelectedChildIndex": 16,
+          "SelectedChildIndex": 9,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "DataWorker.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\DataWorker.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\Model\\DataWorker.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\DataWorker.cs",
-              "RelativeToolTip": "BikeRentalApplication\\Model\\DataWorker.cs",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAmwHUAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T19:27:34.641Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
@@ -131,233 +114,230 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "EditBikeWindow.xaml",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\EditBikeWindow.xaml",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\EditBikeWindow.xaml",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\EditBikeWindow.xaml",
-              "RelativeToolTip": "BikeRentalApplication\\View\\EditBikeWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T19:28:01.713Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AdminVM.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\AdminVM.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\ViewModel\\AdminVM.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\AdminVM.cs",
-              "RelativeToolTip": "BikeRentalApplication\\ViewModel\\AdminVM.cs",
-              "ViewState": "AgIAALQAAAAAAAAAAAAAAHoBAAAWAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "DataWorker.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\DataWorker.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\Model\\DataWorker.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\DataWorker.cs",
+              "RelativeToolTip": "BikeRentalApplication\\Model\\DataWorker.cs",
+              "ViewState": "AgIAABIBAAAAAAAAAAAqwCwBAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:47:55.683Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "App.xaml",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\App.xaml",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\App.xaml",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\App.xaml",
-              "RelativeToolTip": "BikeRentalApplication\\App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T14:46:06.701Z",
+              "WhenOpened": "2025-05-06T11:50:44.924Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AdminBikeWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AdminBikeWindow.xaml.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\AdminBikeWindow.xaml.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AdminBikeWindow.xaml.cs",
-              "RelativeToolTip": "BikeRentalApplication\\View\\AdminBikeWindow.xaml.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:33:31.995Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DataManageVM.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\DataManageVM.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\ViewModel\\DataManageVM.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\DataManageVM.cs",
-              "RelativeToolTip": "BikeRentalApplication\\ViewModel\\DataManageVM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T15:00:15.534Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "EditBikeWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\EditBikeWindow.xaml.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\EditBikeWindow.xaml.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\EditBikeWindow.xaml.cs",
-              "RelativeToolTip": "BikeRentalApplication\\View\\EditBikeWindow.xaml.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:51:28.372Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AuthVM.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\AuthVM.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\ViewModel\\AuthVM.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\AuthVM.cs",
-              "RelativeToolTip": "BikeRentalApplication\\ViewModel\\AuthVM.cs",
-              "ViewState": "AgIAAKoAAAAAAAAAAAAwwMcAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T15:00:04.956Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AdminBikeWindow.xaml",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AdminBikeWindow.xaml",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\AdminBikeWindow.xaml",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AdminBikeWindow.xaml",
-              "RelativeToolTip": "BikeRentalApplication\\View\\AdminBikeWindow.xaml",
+              "Title": "MyBookingsWindow.xaml",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MyBookingsWindow.xaml",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\MyBookingsWindow.xaml",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MyBookingsWindow.xaml",
+              "RelativeToolTip": "BikeRentalApplication\\View\\MyBookingsWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T14:26:16.813Z",
+              "WhenOpened": "2025-05-06T12:30:50.607Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MyBookingsVM.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\MyBookingsVM.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\ViewModel\\MyBookingsVM.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\MyBookingsVM.cs",
+              "RelativeToolTip": "BikeRentalApplication\\ViewModel\\MyBookingsVM.cs",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAQwMoAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T12:34:30.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DataManageVM.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\DataManageVM.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\ViewModel\\DataManageVM.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\DataManageVM.cs",
+              "RelativeToolTip": "BikeRentalApplication\\ViewModel\\DataManageVM.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAYwIIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T11:03:22.194Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MainWindow.xaml.cs",
+              "RelativeToolTip": "BikeRentalApplication\\View\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T12:12:17.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MainWindow.xaml",
               "RelativeDocumentMoniker": "BikeRentalApplication\\View\\MainWindow.xaml",
               "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MainWindow.xaml",
               "RelativeToolTip": "BikeRentalApplication\\View\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T14:46:36.888Z",
+              "WhenOpened": "2025-05-06T10:28:55.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "20250506161520_UpdateBikeBooking.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Migrations\\20250506161520_UpdateBikeBooking.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\Migrations\\20250506161520_UpdateBikeBooking.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Migrations\\20250506161520_UpdateBikeBooking.cs",
+              "RelativeToolTip": "BikeRentalApplication\\Migrations\\20250506161520_UpdateBikeBooking.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T16:15:20.829Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Bike.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\Bike.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\Model\\Bike.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\Bike.cs",
+              "RelativeToolTip": "BikeRentalApplication\\Model\\Bike.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T15:40:30.683Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "AddBikeWindow.xaml",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AddBikeWindow.xaml",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\AddBikeWindow.xaml",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AddBikeWindow.xaml",
-              "RelativeToolTip": "BikeRentalApplication\\View\\AddBikeWindow.xaml",
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\User.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\Model\\User.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\User.cs",
+              "RelativeToolTip": "BikeRentalApplication\\Model\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T15:40:46.609Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BikeBookingWindow.xaml",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\BikeBookingWindow.xaml",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\BikeBookingWindow.xaml",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\BikeBookingWindow.xaml",
+              "RelativeToolTip": "BikeRentalApplication\\View\\BikeBookingWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T18:38:46.77Z",
+              "WhenOpened": "2025-05-06T11:08:03.462Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "AssemblyInfo.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\AssemblyInfo.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\AssemblyInfo.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\AssemblyInfo.cs",
-              "RelativeToolTip": "BikeRentalApplication\\AssemblyInfo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "MyBookingsWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MyBookingsWindow.xaml.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\MyBookingsWindow.xaml.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MyBookingsWindow.xaml.cs",
+              "RelativeToolTip": "BikeRentalApplication\\View\\MyBookingsWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:46:24.429Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\MainWindow.xaml.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\MainWindow.xaml.cs",
-              "RelativeToolTip": "BikeRentalApplication\\View\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:45:45.504Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AuthWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AuthWindow.xaml.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\AuthWindow.xaml.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AuthWindow.xaml.cs",
-              "RelativeToolTip": "BikeRentalApplication\\View\\AuthWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:50:54.743Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "AddBikeWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AddBikeWindow.xaml.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\AddBikeWindow.xaml.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AddBikeWindow.xaml.cs",
-              "RelativeToolTip": "BikeRentalApplication\\View\\AddBikeWindow.xaml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:51:15.153Z",
+              "WhenOpened": "2025-05-06T16:20:47.638Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\App.xaml.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\App.xaml.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\App.xaml.cs",
-              "RelativeToolTip": "BikeRentalApplication\\App.xaml.cs",
+              "Title": "20250506153728_AddBookingStatusToBikeBooking.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Migrations\\20250506153728_AddBookingStatusToBikeBooking.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\Migrations\\20250506153728_AddBookingStatusToBikeBooking.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Migrations\\20250506153728_AddBookingStatusToBikeBooking.cs",
+              "RelativeToolTip": "BikeRentalApplication\\Migrations\\20250506153728_AddBookingStatusToBikeBooking.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:46:19.028Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-06T15:37:28.384Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "SessionManager.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\SessionManager.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\Model\\SessionManager.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\SessionManager.cs",
+              "RelativeToolTip": "BikeRentalApplication\\Model\\SessionManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T11:58:39.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "BikeBookingWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\BikeBookingWindow.xaml.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\BikeBookingWindow.xaml.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\BikeBookingWindow.xaml.cs",
+              "RelativeToolTip": "BikeRentalApplication\\View\\BikeBookingWindow.xaml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAkwCMAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T10:41:14.297Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BikeBookingVM.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\BikeBookingVM.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\ViewModel\\BikeBookingVM.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\BikeBookingVM.cs",
+              "RelativeToolTip": "BikeRentalApplication\\ViewModel\\BikeBookingVM.cs",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAYwJkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T10:25:55.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AuthVM.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\AuthVM.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\ViewModel\\AuthVM.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\ViewModel\\AuthVM.cs",
+              "RelativeToolTip": "BikeRentalApplication\\ViewModel\\AuthVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALsAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T11:50:58.296Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
-              "Title": "AuthWindow.xaml",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AuthWindow.xaml",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\AuthWindow.xaml",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\AuthWindow.xaml",
-              "RelativeToolTip": "BikeRentalApplication\\View\\AuthWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T14:48:56.319Z"
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\Model\\RelayCommand.cs",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Model\\RelayCommand.cs",
+              "RelativeToolTip": "BikeRentalApplication\\Model\\RelayCommand.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAuwBsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T10:39:18.481Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 17,
-              "Title": "Converter.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\Converter.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\View\\Converter.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\View\\Converter.cs",
-              "RelativeToolTip": "BikeRentalApplication\\View\\Converter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:56:58.632Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Helpers.cs",
-              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Helpers\\Helpers.cs",
-              "RelativeDocumentMoniker": "BikeRentalApplication\\Helpers\\Helpers.cs",
-              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\Helpers\\Helpers.cs",
-              "RelativeToolTip": "BikeRentalApplication\\Helpers\\Helpers.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:50:07.54Z"
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\App.xaml",
+              "RelativeDocumentMoniker": "BikeRentalApplication\\App.xaml",
+              "ToolTip": "D:\\Visual_Lab_4sem\\OOP\\BikeRentalApplication\\BikeRentalApplication\\App.xaml",
+              "RelativeToolTip": "BikeRentalApplication\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-06T11:36:08.748Z",
+              "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 200,
+          "DockedWidth": 275,
           "SelectedChildIndex": -1,
           "Children": [
             {
