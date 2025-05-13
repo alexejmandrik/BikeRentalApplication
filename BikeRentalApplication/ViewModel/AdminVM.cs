@@ -18,11 +18,6 @@ namespace BikeRentalApplication.ViewModel
     public class AdminVM : INotifyPropertyChanged
     {
         #region BIKE OR USER PANEL
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private bool isBikeVisible = true;
         public bool IsBikeVisible
         {
@@ -78,16 +73,6 @@ namespace BikeRentalApplication.ViewModel
             AuthWindow authWindow = new AuthWindow();
             SetCenterPositionAndOpen(authWindow);
         }
-        private void OpenAdminBikeWindowMethod()
-        {
-            AdminBikeWindow adminBikeWindow = new AdminBikeWindow();
-            SetCenterPositionAndOpen(adminBikeWindow);
-        }
-     /*   private void OpenAdminUserWindowMethod()
-        {
-            AdminUserWindow adminUserWindow = new AdminUserWindow();
-            SetCenterPositionAndOpen(adminUserWindow);
-        }*/
         private void OpenAddBikeWindowMethod()
         {
             AddBikeWindow addBikeWindow = new AddBikeWindow();
@@ -103,8 +88,6 @@ namespace BikeRentalApplication.ViewModel
         #region COMMANDS TO OPEN WINDOWS
 
         private RelayCommand openAuthWindow;
-        private RelayCommand openAdminBikeWindow;
-        private RelayCommand openAdminUserWindow;
         private RelayCommand openAddBikeWindow;
         private RelayCommand openEditBikeWindow;
         public RelayCommand OpenAuthWindow
@@ -146,26 +129,6 @@ namespace BikeRentalApplication.ViewModel
                 });
             }
         }
-        public RelayCommand OpenAdminBikeWindow
-        {
-            get
-            {
-                return openAdminBikeWindow ?? new RelayCommand(obj =>
-                {
-                    OpenAdminBikeWindowMethod();
-                });
-            }
-        }
-     /*   public RelayCommand OpenAdminUserWindow
-        {
-            get
-            {
-                return openAdminUserWindow ?? new RelayCommand(obj =>
-                {
-                    OpenAdminUserWindowMethod();
-                });
-            }
-        }*/
         #endregion
 
         public static Bike SelectedBike { get; set; }
@@ -334,8 +297,6 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
-
-        #region UPDATE VIEWS
         private void UpdateAdminBikeView()
         {
             AllBikes = DataWorker.GetAllBikes();
@@ -345,15 +306,6 @@ namespace BikeRentalApplication.ViewModel
             AdminBikeWindow.AllBikesView.ItemsSource = AllBikes;
             AdminBikeWindow.AllBikesView.Items.Refresh();
         }
-     /*   private void UpdateAdminUserView()
-        {
-            AllUsers= DataWorker.GetAllUsers();
-            AdminUserWindow.AllUsersView.ItemsSource = null;
-            AdminUserWindow.AllUsersView.Items.Clear();
-            AdminUserWindow.AllUsersView.ItemsSource = AllUsers;
-            AdminUserWindow.AllUsersView.Items.Refresh();
-        }*/
-        #endregion
 
         private void SetNullValuesBikeView()
         {
@@ -377,6 +329,11 @@ namespace BikeRentalApplication.ViewModel
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public void NotifyPropertyChanged(string propertyName)
         {

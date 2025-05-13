@@ -40,14 +40,10 @@
     <Grid Background="WhiteSmoke">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Шапка -->
             <RowDefinition Height="*"/>
-            <!-- Контент -->
             <RowDefinition Height="Auto"/>
-            <!-- Строка для возможного футера или пусто -->
         </Grid.RowDefinitions>
 
-        <!-- Шапка -->
         <Grid Grid.Row="0" Background="#FF1F1F1F" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -79,7 +75,6 @@
             </StackPanel>
         </Grid>
 
-        <!-- Основной контент (список бронирований) -->
         <Grid Grid.Row="1" Visibility="{Binding IsContentVisible, Converter={StaticResource BoolToVisConverter}}">
             <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding DisplayableBookings}">
@@ -124,9 +119,7 @@
                                         <TextBlock Text="{Binding FormattedPrice, Mode=OneWay}" FontSize="14" FontWeight="Bold" Margin="0,5,0,3" Visibility="{Binding PriceVisibility, Mode=OneWay}"/>
                                     </StackPanel>
 
-                                    <!-- This StackPanel contains the buttons -->
                                     <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                                        <!-- The "Отменить бронь" (Cancel booking) button -->
                                         <Button Content="Отменить бронь"
                                                 Command="{Binding DataContext.CancelBookingCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}" 

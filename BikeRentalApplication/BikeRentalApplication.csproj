@@ -6,12 +6,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\iconca.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\CannondaleScalpel.png" />
     <None Remove="Resources\Cube.jpg" />
     <None Remove="Resources\CubeStereoOne22Pro.jpg" />
+    <None Remove="Resources\iconca.ico" />
     <None Remove="Resources\KTMUltraFun.jpg" />
     <None Remove="Resources\Logo.png" />
     <None Remove="Resources\OrbeaAvantH60.jpg" />
@@ -38,6 +40,7 @@
     <Resource Include="Resources\CannondaleScalpel.png" />
     <Resource Include="Resources\Cube.jpg" />
     <Resource Include="Resources\CubeStereoOne22Pro.jpg" />
+    <Resource Include="Resources\iconca.ico" />
     <Resource Include="Resources\KTMUltraFun.jpg" />
     <Resource Include="Resources\Logo.png" />
     <Resource Include="Resources\OrbeaAvantH60.jpg" />

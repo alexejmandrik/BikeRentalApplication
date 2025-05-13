@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BikeRentalApplication.ViewModel
@@ -143,7 +144,7 @@ namespace BikeRentalApplication.ViewModel
             DateTime finalStartDateTime = StartDate.Value.Date.AddHours(StartTime);
             DateTime finalEndDateTime = EndDate.Value.Date.AddHours(EndTime);
 
-            bool success = DataWorker.CreateBikeBooking(
+            string success = DataWorker.CreateBikeBooking(
                 _userId,
                 BikeToBook.Id,
                 finalStartDateTime,
@@ -156,20 +157,20 @@ namespace BikeRentalApplication.ViewModel
             System.Diagnostics.Debug.WriteLine($"Booking attempt: User {_userId}, Bike {BikeToBook.Id}, From {finalStartDateTime} To {finalEndDateTime}");
 
 
-            if (success)
+            if (success == "Успешно забронировано!")
             {
-                System.Diagnostics.Debug.WriteLine("Бронирование успешно.");
+                MessageBox.Show("Бронирование успешно.");
                 OnRequestClose(true);
             }
             else
             {
                 System.Windows.MessageBox.Show(
-                    "Невозможно забронировать: выбранное время уже занято.",
+                    "Невозможно забронировать: " + success,
                     "Ошибка бронирования",
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Warning
                 );
-                // OnRequestClose(false); // Возможно, не нужно закрывать окно при ошибке, чтобы пользователь мог исправить данные
+                //OnRequestClose(false); // Возможно, не нужно закрывать окно при ошибке, чтобы пользователь мог исправить данные
             }
         }
 

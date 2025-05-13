@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:BikeRentalApplication"
              StartupUri="View/AuthWindow.xaml">
     <Application.Resources>
-         
+        <BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/iconca.ico" />
     </Application.Resources>
 </Application>

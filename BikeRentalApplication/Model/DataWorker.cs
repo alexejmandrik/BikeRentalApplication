@@ -14,33 +14,49 @@ namespace BikeRentalApplication.Model
     public class DataWorker
     {
         #region USER DB
-        public static bool CreateUser(string userName, string name, string surname, string patronymic, string phoneNumber, string password, string userStatus)
+        public static async Task<bool> CreateUserAsync(string userName, string name, string surname, string patronymic, string phoneNumber, string password, string userStatus)
         {
             bool result = false;
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                bool checkIsExist = db.Users.Any(el => el.UserName == userName);
-                if (!checkIsExist)
-                {
-                    User newUser = new User
-                    {
-                        UserName = userName,
-                        Name = name,
-                        Surname = surname,
-                        Patronymic = patronymic,
-                        PhoneNumber = phoneNumber,
-                        Password = PasswordService.HashPassword(password),
-                        UserStatus = userStatus,
-                        IsBlocked = false
-                    };
 
-                    db.Users.Add(newUser);
-                    db.SaveChanges();
-                    result = true;
+            using (var db = new ApplicationContext())
+            {
+                using (var transaction = await db.Database.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        bool checkIsExist = await db.Users.AnyAsync(el => el.UserName == userName);
+                        if (!checkIsExist)
+                        {
+                            User newUser = new User
+                            {
+                                UserName = userName,
+                                Name = name,
+                                Surname = surname,
+                                Patronymic = patronymic,
+                                PhoneNumber = phoneNumber,
+                                Password = PasswordService.HashPassword(password),
+                                UserStatus = userStatus,
+                                IsBlocked = false
+                            };
+
+                            await db.Users.AddAsync(newUser);
+                            await db.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+                            result = true;
+                        }
+                    }
+                    catch
+                    {
+                        await transaction.RollbackAsync(); 
+                        throw;
+                    }
                 }
             }
+
             return result;
         }
+
 
         public static bool DeleteUser(User user)
         {
@@ -247,12 +263,14 @@ namespace BikeRentalApplication.Model
         #endregion
 
         #region CRUD BUKING
-        public static bool CreateBikeBooking(int userId, int bikeId, DateTime startDateTime, DateTime endDateTime, string? comment, string status, decimal price)
+        public static string CreateBikeBooking(int userId, int bikeId, DateTime startDateTime, DateTime endDateTime, string? comment, string status, decimal price)
         {
-            bool result = false;
+            string result = "Данное время уже занято!";
+            if (startDateTime <= DateTime.Now)
+                return "Вы не можете выбрать время раньше актуального сейчас!";
+
             using (ApplicationContext db = new ApplicationContext())
             {
-                // Проверка на пересечение по времени с другими бронями на этот велосипед
                 bool isOverlap = db.BikeBookings.Any(b =>
                     b.BikeId == bikeId &&
                     ((startDateTime >= b.StartDateTime && startDateTime < b.EndDateTime) ||
@@ -274,11 +292,13 @@ namespace BikeRentalApplication.Model
 
                     db.BikeBookings.Add(newBooking);
                     db.SaveChanges();
-                    result = true;
+                    result = "Успешно забронировано!";
                 }
             }
+
             return result;
         }
+
 
         public static bool DeleteBikeBooking(BikeBooking bikeBooking)
         {

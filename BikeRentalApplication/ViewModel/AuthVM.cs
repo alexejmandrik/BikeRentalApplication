@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions; 
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using BikeRentalApplication.Model;
 using BikeRentalApplication.Helpers;
 using BikeRentalApplication.View;
-using BikeRentalApplication.View;
-using System.Diagnostics.Metrics;
+using System; 
+using System.Linq; 
 
 namespace BikeRentalApplication.ViewModel
 {
@@ -20,18 +20,18 @@ namespace BikeRentalApplication.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string titleText = "Авторизация";
+        private string _titleText = "";
         public string TitleText
         {
-            get => titleText;
-            set { titleText = value; OnPropertyChanged(); }
+            get => _titleText;
+            set { _titleText = value; OnPropertyChanged(); }
         }
 
         private bool isLoginVisible = true;
         public bool IsLoginVisible
         {
             get => isLoginVisible;
-            set { isLoginVisible = value; OnPropertyChanged(); }
+            set { isLoginVisible = value; OnPropertyChanged(); UpdateLocalizedTexts(); }
         }
 
         private bool isRegisterVisible = false;
@@ -41,11 +41,11 @@ namespace BikeRentalApplication.ViewModel
             set { isRegisterVisible = value; OnPropertyChanged(); }
         }
 
-        private string switchLinkText = "Нет аккаунта? Зарегистрируйтесь";
+        private string _switchLinkText = ""; 
         public string SwitchLinkText
         {
-            get => switchLinkText;
-            set { switchLinkText = value; OnPropertyChanged(); }
+            get => _switchLinkText;
+            set { _switchLinkText = value; OnPropertyChanged(); }
         }
 
         private string statusMessage = "";
@@ -118,17 +118,45 @@ namespace BikeRentalApplication.ViewModel
             set { _registerConfirmPassword = value; OnPropertyChanged(); }
         }
 
+
         public ICommand SwitchCommand { get; }
         public ICommand LoginCommand { get; }
         public ICommand RegisterCommand { get; }
+        public ICommand ChangeLanguageCommand { get; }
 
-        private RelayCommand openAdminBikeWindow;
 
         public AuthVM()
         {
             SwitchCommand = new RelayCommand(SwitchMode);
-            LoginCommand = new RelayCommand(Login);       
-            RegisterCommand = new RelayCommand(Register); 
+            LoginCommand = new RelayCommand(Login);
+            RegisterCommand = new RelayCommand(Register);
+            ChangeLanguageCommand = new RelayCommand(ChangeLanguage); 
+
+            LocalizationManager.Instance.LanguageChanged += OnLanguageChanged;
+            UpdateLocalizedTexts();
+        }
+
+        private void OnLanguageChanged(object? sender, EventArgs e)
+        {
+            UpdateLocalizedTexts();
+        }
+
+        private void UpdateLocalizedTexts()
+        {
+            TitleText = IsLoginVisible ? LocalizationManager.Instance.GetString("AuthVM.Title.Login")
+                                       : LocalizationManager.Instance.GetString("AuthVM.Title.Register");
+            SwitchLinkText = IsLoginVisible ? LocalizationManager.Instance.GetString("AuthVM.SwitchLink.ToRegister")
+                                            : LocalizationManager.Instance.GetString("AuthVM.SwitchLink.ToLogin");
+            OnPropertyChanged(nameof(TitleText));
+            OnPropertyChanged(nameof(SwitchLinkText));
+        }
+
+        private void ChangeLanguage(object? parameter)
+        {
+            if (parameter is string cultureName)
+            {
+                LocalizationManager.Instance.SwitchLanguage(cultureName);
+            }
         }
 
         private void OpenAdminBikeWindowMethod()
@@ -146,8 +174,6 @@ namespace BikeRentalApplication.ViewModel
         {
             IsLoginVisible = !IsLoginVisible;
             IsRegisterVisible = !IsRegisterVisible;
-            TitleText = IsLoginVisible ? "Авторизация" : "Регистрация";
-            SwitchLinkText = IsLoginVisible ? "Нет аккаунта? Зарегистрируйтесь" : "Уже есть аккаунт? Войдите";
             StatusMessage = "";
 
             LoginUsername = "";
@@ -161,14 +187,13 @@ namespace BikeRentalApplication.ViewModel
             RegisterConfirmPassword = "";
         }
 
-
         private void Login(object? obj)
         {
             StatusMessage = string.Empty;
 
             if (string.IsNullOrWhiteSpace(LoginUsername) || string.IsNullOrWhiteSpace(Password))
             {
-                StatusMessage = "Введите логин и пароль.";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.EnterLoginPassword");
                 return;
             }
 
@@ -177,33 +202,36 @@ namespace BikeRentalApplication.ViewModel
             {
                 LoginUsername = "";
                 Password = "";
-                MessageBox.Show("Ваш аккаунт заблокирован!");
+                MessageBox.Show(LocalizationManager.Instance.GetString("Status.AccountBlocked"));
                 return;
             }
             if (isAuthenticated)
             {
                 SessionManager.CurrentUser = DataWorker.GetUserByUsername(LoginUsername);
-                StatusMessage = "Успешный вход.";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.LoginSuccessful");
 
                 string result = DataWorker.GetUserRole(LoginUsername);
-                if(result == "admin")
+                if (result == "admin")
                 {
                     OpenAdminBikeWindowMethod();
+                    LoginUsername = "";
+                    Password = "";
                 }
                 else
                 {
                     OpenMainWindowMethod();
+                    LoginUsername = "";
+                    Password = "";
                 }
             }
             else
             {
-                Password = "";
-                StatusMessage = "Неверный логин или пароль.";
+                Password = ""; 
+                StatusMessage = LocalizationManager.Instance.GetString("Status.InvalidLoginOrPassword");
             }
         }
 
-
-        private void Register(object? obj)
+        private async void Register(object? obj)
         {
             StatusMessage = string.Empty;
 
@@ -214,85 +242,86 @@ namespace BikeRentalApplication.ViewModel
                 string.IsNullOrWhiteSpace(RegisterPassword) ||
                 string.IsNullOrWhiteSpace(RegisterConfirmPassword))
             {
-                StatusMessage = "Заполните все обязательные поля.";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.FillAllRequiredFields");
                 return;
             }
 
             if (RegisterName.Any(char.IsDigit) ||
-               RegisterSurname.Any(char.IsDigit) ||
-               (!string.IsNullOrWhiteSpace(RegisterPatronymic) && RegisterPatronymic.Any(char.IsDigit)))
+                RegisterSurname.Any(char.IsDigit) ||
+                (!string.IsNullOrWhiteSpace(RegisterPatronymic) && RegisterPatronymic.Any(char.IsDigit)))
             {
-                StatusMessage = "Имя, фамилия и отчество не должны содержать цифры.";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.NameNoDigits");
                 return;
             }
 
             if (!Regex.IsMatch(RegisterPhone, @"^\+375\d{9}$"))
             {
-                StatusMessage = "Неверный формат номера. Используйте формат: +375XXXXXXXXX";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.InvalidPhoneFormat");
                 return;
             }
-          
+
             if (RegisterPhone.Any(char.IsLetter))
             {
-                StatusMessage = "Номер телефона не должен содержать буквы.";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.PhoneNoLetters");
                 return;
             }
 
             if (RegisterPassword.Length < 5)
             {
-                StatusMessage = "Пароль слишком короткий.";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.PasswordTooShort");
                 return;
             }
-                   
+
             if (RegisterPassword != RegisterConfirmPassword)
             {
-                StatusMessage = "Пароли не совпадают.";
+                StatusMessage = LocalizationManager.Instance.GetString("Status.PasswordsDoNotMatch");
                 return;
             }
 
-            bool success = DataWorker.CreateUser(
-                userName: RegisterUsername,
-                name: RegisterName,
-                surname: RegisterSurname,
-                patronymic: RegisterPatronymic,
-                phoneNumber: RegisterPhone,
-                password: RegisterPassword,
-                userStatus: "user"
-            );
-
-            if (success)
+            try
             {
-                MessageBox.Show("Регистрация прошла успешно! Теперь вы можете войти.");
-                OpenMainWindowMethod();
+                bool success = await DataWorker.CreateUserAsync(
+                    userName: RegisterUsername,
+                    name: RegisterName,
+                    surname: RegisterSurname,
+                    patronymic: RegisterPatronymic,
+                    phoneNumber: RegisterPhone,
+                    password: RegisterPassword,
+                    userStatus: "user"
+                );
 
-                LoginUsername = "";
-                Password = "";
-                RegisterUsername = "";
-                RegisterName = "";
-                RegisterSurname = "";
-                RegisterPatronymic = "";
-                RegisterPhone = "";
-                RegisterPassword = "";
-                RegisterConfirmPassword = "";
-
-                IsLoginVisible = !IsLoginVisible;
-                IsRegisterVisible = !IsRegisterVisible;
-                TitleText = IsLoginVisible ? "Авторизация" : "Регистрация";
-                SwitchLinkText = IsLoginVisible ? "Нет аккаунта? Зарегистрируйтесь" : "Уже есть аккаунт? Войдите";
-                StatusMessage = "";
+                if (success)
+                {
+                    MessageBox.Show(LocalizationManager.Instance.GetString("Status.RegistrationSuccessful"));
+                    SessionManager.CurrentUser = DataWorker.GetUserByUsername(RegisterUsername);
+                    OpenMainWindowMethod();
+                }
+                else
+                {
+                    StatusMessage = LocalizationManager.Instance.GetString("Status.RegistrationFailedUserExists");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                StatusMessage = "Ошибка регистрации. Возможно, пользователь с таким логином уже существует.";
+                // На случай неожиданных ошибок
+                StatusMessage = LocalizationManager.Instance.GetString("Status.UnexpectedError");
             }
         }
 
 
         public void SetCenterPositionAndOpen(Window window)
         {
-            window.Owner = Application.Current.MainWindow;
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            window.ShowDialog();
+            Window? ownerWindow = Application.Current.Windows.OfType<AuthWindow>().FirstOrDefault();
+            if (ownerWindow != null)
+            {
+                window.Owner = ownerWindow;
+                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            }
+            else 
+            {
+                window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
+            window.Show();
         }
     }
 }
