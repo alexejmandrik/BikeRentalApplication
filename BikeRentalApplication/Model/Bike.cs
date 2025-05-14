@@ -11,6 +11,7 @@ namespace BikeRentalApplication.Model
         public int Id { get; set; }
         public required string Name { get; set; }
         public required string Description { get; set; }
+        public required string FullDescription { get; set; }
         public required string ImagePath { get; set; }
         public decimal Price { get; set; }
     }

@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BikeRentalApplication.View"
-        xmlns:viewmodel="clr-namespace:BikeRentalApplication.ViewModel" 
+        xmlns:viewmodel="clr-namespace:BikeRentalApplication.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:BikeRentalApplication.Behaviors"
         mc:Ignorable="d"
         Title="Велопрокат" Height="600" Width="900"
+        
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -96,6 +99,11 @@
                          SelectionMode="Single"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          BorderThickness="0">
+                 
+                    <i:Interaction.Behaviors>
+                    <behaviors:MouseDoubleClickBehavior Command="{Binding OpenBikeWindow}" />
+                    </i:Interaction.Behaviors>
+                    
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True"/>
@@ -177,6 +185,7 @@
                 <Button Content="Главная" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding SwitchCommand}"/>
                 <Button Content="Бонусы" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenBonusesWindowCommand}"/>
                 <Button Content="Карта" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenMapWindowCommand}"/>
+                <Button Content="История" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenHistoryWindow}"/>
                 <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenProfileWindowCommand}"/>
             </StackPanel>
         </Grid>

@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:BikeRentalApplication.View"
         mc:Ignorable="d"
         Name="AuthWind"
-        Title="{DynamicResource AuthWindowTitle}" Height="600" Width="450"
+        Title="{DynamicResource AuthWindowTitle}" Height="620" Width="450"
     WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
     <Window.DataContext>

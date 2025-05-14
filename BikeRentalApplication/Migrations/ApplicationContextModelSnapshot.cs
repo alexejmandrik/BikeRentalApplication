@@ -43,6 +43,9 @@ namespace BikeRentalApplication.Migrations
                     b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -73,6 +76,10 @@ namespace BikeRentalApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -89,6 +96,36 @@ namespace BikeRentalApplication.Migrations
                     b.ToTable("Bikes");
                 });
 
+            modelBuilder.Entity("BikeRentalApplication.Model.Comments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BikeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Visibility")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BikeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("BikeRentalApplication.Model.User", b =>
                 {
                     b.Property<int>("Id")
@@ -96,6 +133,9 @@ namespace BikeRentalApplication.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BonusCounter")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
@@ -134,6 +174,25 @@ namespace BikeRentalApplication.Migrations
                 });
 
             modelBuilder.Entity("BikeBooking", b =>
+                {
+                    b.HasOne("BikeRentalApplication.Model.Bike", "Bike")
+                        .WithMany()
+                        .HasForeignKey("BikeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BikeRentalApplication.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bike");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BikeRentalApplication.Model.Comments", b =>
                 {
                     b.HasOne("BikeRentalApplication.Model.Bike", "Bike")
                         .WithMany()

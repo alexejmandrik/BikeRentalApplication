@@ -115,6 +115,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                <Button Content="Заказы" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAllBookingsWindow }" Margin="10,0"/>
                 <Button Content="Пользователи" Style="{StaticResource LinkButtonStyle}" Command="{Binding SwitchCommand}" Margin="10,0"/>
                 <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
             </StackPanel>
@@ -211,6 +212,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                <Button Content="Заказы" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAllBookingsWindow }" Margin="10,0"/>
                 <Button Content="Велосипеды" Style="{StaticResource LinkButtonStyle}" Command="{Binding SwitchCommand}" Margin="10,0"/>
                 <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
             </StackPanel>

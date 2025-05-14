@@ -35,7 +35,8 @@ namespace BikeRentalApplication.ViewModel
                 {
                     Name = "Неизвестный велосипед",
                     ImagePath = "/Resources/Logo.png",
-                    Description = "Описание для неизвестного велосипеда отсутствует."
+                    Description = "Описание для неизвестного велосипеда отсутствует.",
+                    FullDescription = "Полное описание для неизвестного велосипеда отсутствует."
                 };
             }
 
@@ -63,6 +64,38 @@ namespace BikeRentalApplication.ViewModel
             protected virtual void OnPropertyChangedInner([CallerMemberName] string propertyName = null)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OpenBikeWindowMethod(Bike bikeToOpen)
+        {
+            if (bikeToOpen == null)
+            {
+                MessageBox.Show("Велосипед для открытия не выбран или не передан.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            BikeWindow bikeWindow = new BikeWindow(bikeToOpen);
+            SetCenterPositionAndOpen(bikeWindow);
+        }
+
+        private RelayCommand openBikeWindow;
+        public RelayCommand OpenBikeWindow
+        {
+            get
+            {
+                return openBikeWindow ?? (openBikeWindow = new RelayCommand(obj =>
+                {
+                    Bike selectedBikeFromDoubleClick = obj as Bike;
+                    if (selectedBikeFromDoubleClick != null)
+                    {
+                        OpenBikeWindowMethod(selectedBikeFromDoubleClick);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось определить велосипед для открытия.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }));
             }
         }
 
@@ -140,6 +173,24 @@ namespace BikeRentalApplication.ViewModel
         public ICommand SortByNameCommand { get; }
         public ICommand SortByPriceAscCommand { get; }
         public ICommand SortByPriceDescCommand { get; }
+
+        private void OpenHistoryWindowMethod()
+        {
+            HistoryWindow historyWindow = new HistoryWindow();
+            SetCenterPositionAndOpen(historyWindow);
+        }
+        private RelayCommand openHistoryWindow;
+
+        public RelayCommand OpenHistoryWindow
+        {
+            get
+            {
+                return openHistoryWindow ?? new RelayCommand(obj =>
+                {
+                    OpenHistoryWindowMethod();
+                });
+            }
+        }
 
         private void SortBikes(BikeSortType sortType)
         {
@@ -254,21 +305,21 @@ namespace BikeRentalApplication.ViewModel
 
                 if (userBookingInfos != null)
                 {
-                    foreach (var bookingInfo in userBookingInfos)
+                    foreach (var booking in userBookingInfos)
                     {
-                        Bike? bikeDetails = await Task.Run(() => DataWorker.GetBikeById(bookingInfo.BikeId));
-                        DisplayableBookings.Add(new DisplayableBookingItem(bookingInfo, bikeDetails));
+                        await Task.Run(() => DataWorker.UpdateBookingStatusIfNeeded(booking));
+
+                        if (booking.BookingStatus == "Активно" || booking.BookingStatus == "Забронировано")
+                        {
+                            var bike = await Task.Run(() => DataWorker.GetBikeById(booking.BikeId));
+                            DisplayableBookings.Add(new DisplayableBookingItem(booking, bike));
+                        }
                     }
                 }
 
-                if (!DisplayableBookings.Any())
-                {
-                    LoadingBookingsMessage = "У вас пока нет активных заказов.";
-                }
-                else
-                {
-                    LoadingBookingsMessage = string.Empty;
-                }
+                LoadingBookingsMessage = DisplayableBookings.Any()
+                    ? string.Empty
+                    : "У вас пока нет активных заказов.";
             }
             catch (Exception ex)
             {
@@ -280,6 +331,7 @@ namespace BikeRentalApplication.ViewModel
                 IsLoadingBookings = false;
             }
         }
+
 
         private async Task CancelBookingActionAsync(DisplayableBookingItem itemToCancel)
         {
@@ -351,8 +403,7 @@ namespace BikeRentalApplication.ViewModel
             {
                 _ = LoadActiveBookingsAsync();
             }
-            // AllBikes = DataWorker.GetAllBikes(); // OLD
-            RefreshAndSortBikes(); // NEW
+            RefreshAndSortBikes(); 
         }
 
         private RelayCommand openBikeBookingWindow;
@@ -418,8 +469,7 @@ namespace BikeRentalApplication.ViewModel
                 {
                     _ = LoadActiveBookingsAsync();
                 }
-                // AllBikes = DataWorker.GetAllBikes(); // OLD 
-                RefreshAndSortBikes(); // NEW:
+                RefreshAndSortBikes(); 
             }
         }
         public void SetCenterPositionAndOpen(Window window)

@@ -33,4 +33,5 @@ public class BikeBooking
 
     [Required]
     public decimal Price { get; set; }
+    public bool IsPaid { get; set; } 
 }

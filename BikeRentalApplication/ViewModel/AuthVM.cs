@@ -198,15 +198,15 @@ namespace BikeRentalApplication.ViewModel
             }
 
             bool isAuthenticated = DataWorker.AuthenticateUser(LoginUsername, Password);
-            if (DataWorker.CheckBlocking(LoginUsername))
-            {
-                LoginUsername = "";
-                Password = "";
-                MessageBox.Show(LocalizationManager.Instance.GetString("Status.AccountBlocked"));
-                return;
-            }
             if (isAuthenticated)
             {
+                if (DataWorker.CheckBlocking(LoginUsername))
+                {
+                    LoginUsername = "";
+                    Password = "";
+                    MessageBox.Show(LocalizationManager.Instance.GetString("Status.AccountBlocked"));
+                    return;
+                }
                 SessionManager.CurrentUser = DataWorker.GetUserByUsername(LoginUsername);
                 StatusMessage = LocalizationManager.Instance.GetString("Status.LoginSuccessful");
 
@@ -292,6 +292,13 @@ namespace BikeRentalApplication.ViewModel
 
                 if (success)
                 {
+                    RegisterUsername = "";
+                    RegisterName = "";
+                    RegisterSurname = "";
+                    RegisterPatronymic = "";
+                    RegisterPhone = "";
+                    RegisterPassword = "";
+                    RegisterConfirmPassword = "";
                     MessageBox.Show(LocalizationManager.Instance.GetString("Status.RegistrationSuccessful"));
                     SessionManager.CurrentUser = DataWorker.GetUserByUsername(RegisterUsername);
                     OpenMainWindowMethod();
@@ -303,7 +310,6 @@ namespace BikeRentalApplication.ViewModel
             }
             catch (Exception ex)
             {
-                // На случай неожиданных ошибок
                 StatusMessage = LocalizationManager.Instance.GetString("Status.UnexpectedError");
             }
         }

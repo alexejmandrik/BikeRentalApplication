@@ -80,8 +80,21 @@ namespace BikeRentalApplication.ViewModel
         }
         private void OpenEditBikeWindowMethod()
         {
-            EditBikeWindow editBikeWindow = new EditBikeWindow();
-            SetCenterPositionAndOpen(editBikeWindow);
+            if (SelectedBike != null)
+            {
+                var vm = new EditBikeVM(SelectedBike);
+                var editBikeWindow = new EditBikeWindow
+                {
+                    DataContext = vm
+                };
+                SetCenterPositionAndOpen(editBikeWindow);
+            }
+        }
+
+        private void OpenAllBookingsWindowMethod()
+        {
+            AllBookingsWindow allBookingsWindow = new AllBookingsWindow();
+            SetCenterPositionAndOpen(allBookingsWindow);
         }
         #endregion
 
@@ -90,6 +103,7 @@ namespace BikeRentalApplication.ViewModel
         private RelayCommand openAuthWindow;
         private RelayCommand openAddBikeWindow;
         private RelayCommand openEditBikeWindow;
+        private RelayCommand openAllBookingsWindow;
         public RelayCommand OpenAuthWindow
         {
             get
@@ -129,6 +143,17 @@ namespace BikeRentalApplication.ViewModel
                 });
             }
         }
+
+        public RelayCommand OpenAllBookingsWindow
+        {
+            get
+            {
+                return openAllBookingsWindow ?? new RelayCommand(obj =>
+                {
+                    OpenAllBookingsWindowMethod();
+                });
+            }
+        }
         #endregion
 
         public static Bike SelectedBike { get; set; }
@@ -136,6 +161,7 @@ namespace BikeRentalApplication.ViewModel
 
         public string BikeName { get; set; }
         public string BikeDescription { get; set; }
+        public string BikeFullDescription { get; set; }
         public string BikeImagePath { get; set; }
         public decimal BikePrice { get; set; }
 
@@ -165,6 +191,11 @@ namespace BikeRentalApplication.ViewModel
                             SetRedBlockControl(wnd, "DescriptionBlock");
                             valid = false;
                         }
+                        if (BikeFullDescription == null || BikeFullDescription.Replace(" ", "").Length == 0)
+                        {
+                            SetRedBlockControl(wnd, "FullDescriptionBlock");
+                            valid = false;
+                        }
                         if (BikeImagePath == null || BikeImagePath.Replace(" ", "").Length == 0)
                         {
                             SetRedBlockControl(wnd, "PathBlock");
@@ -185,7 +216,7 @@ namespace BikeRentalApplication.ViewModel
                         if (valid)
                         {
                             BikeImagePath = "/Resources/" + BikeImagePath;
-                            resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeImagePath, BikePrice);
+                            resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeFullDescription, BikeImagePath, BikePrice);
                             UpdateAdminBikeView();
                             SetNullValuesBikeView();
                             MessageBox.Show("Успешно добавлено!");
@@ -221,62 +252,7 @@ namespace BikeRentalApplication.ViewModel
                 }
             }
 
-            private RelayCommand editBike;
-            public RelayCommand EditBike
-            {
-                get
-                {   
-
-                    return editBike ?? new RelayCommand(obj =>
-                    {
-                        Window wnd = obj as Window;
-                         string basePath = AppDomain.CurrentDomain.BaseDirectory;
-                        string projectDir = Path.GetFullPath(Path.Combine(basePath, @"..\..\..\"));
-                        string fullPath = projectDir + "\\Resources\\" + BikeImagePath;
-
-                        bool resultStr = false;
-                        bool valid = true;
-                        if (BikeName == null || BikeName.Replace(" ", "").Length == 0)
-                        {
-                            SetRedBlockControl(wnd, "NameBlock");
-                            valid = false;
-                        }
-                        if (BikeDescription == null || BikeDescription.Replace(" ", "").Length == 0)
-                        {
-                            SetRedBlockControl(wnd, "DescriptionBlock");
-                            valid = false;
-                        }
-                        if (BikeImagePath == null || BikeImagePath.Replace(" ", "").Length == 0)
-                        {
-                            SetRedBlockControl(wnd, "PathBlock");
-                            valid = false;
-                        }
-                        if (!File.Exists(fullPath))
-                        {
-                            MessageBox.Show("Фото по данному пути не существует!");
-                            SetRedBlockControl(wnd, "PathBlock");
-                            valid = false;
-                        }
-
-                        if (BikePrice == 0)
-                        {
-                            SetRedBlockControl(wnd, "PriceBlock");
-                            valid = false;
-                        }
-                        if (valid)
-                        {
-                            BikeImagePath = "/Resources/" + BikeImagePath;
-                            resultStr = DataWorker.EditBike(SelectedBike, BikeName, BikeDescription, BikeImagePath, BikePrice);
-                            UpdateAdminBikeView();
-                            SetNullValuesBikeView();
-                            MessageBox.Show("Успешно добавлено!");
-                            wnd.Close();
-                        }
-                        else
-                            return;
-                    });
-                }
-            }
+           
         #endregion
 
         private RelayCommand setIsBlocked;

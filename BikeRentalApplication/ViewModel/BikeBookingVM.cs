@@ -144,18 +144,18 @@ namespace BikeRentalApplication.ViewModel
             DateTime finalStartDateTime = StartDate.Value.Date.AddHours(StartTime);
             DateTime finalEndDateTime = EndDate.Value.Date.AddHours(EndTime);
 
+            decimal totalPrice = CalculateTotalPrice();
+
             string success = DataWorker.CreateBikeBooking(
                 _userId,
                 BikeToBook.Id,
                 finalStartDateTime,
                 finalEndDateTime,
                 string.IsNullOrWhiteSpace(Comment) ? null : Comment,
-                "aktive",
-                1300
+                "Забронировано",
+                totalPrice,
+                false
             );
-
-            System.Diagnostics.Debug.WriteLine($"Booking attempt: User {_userId}, Bike {BikeToBook.Id}, From {finalStartDateTime} To {finalEndDateTime}");
-
 
             if (success == "Успешно забронировано!")
             {
@@ -164,15 +164,26 @@ namespace BikeRentalApplication.ViewModel
             }
             else
             {
-                System.Windows.MessageBox.Show(
+                MessageBox.Show(
                     "Невозможно забронировать: " + success,
                     "Ошибка бронирования",
-                    System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Warning
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
                 );
-                //OnRequestClose(false); // Возможно, не нужно закрывать окно при ошибке, чтобы пользователь мог исправить данные
             }
         }
+
+
+        private decimal CalculateTotalPrice()
+        {
+            DateTime start = StartDate.Value.Date.AddHours(StartTime);
+            DateTime end = EndDate.Value.Date.AddHours(EndTime);
+            TimeSpan duration = end - start;
+
+            int totalHours = (int)Math.Ceiling(duration.TotalHours);
+            return totalHours * BikeToBook.Price;
+        }
+
 
         private void ExecuteCancel(object parameter)
         {

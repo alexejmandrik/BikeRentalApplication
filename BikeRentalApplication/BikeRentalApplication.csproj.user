@@ -5,6 +5,9 @@
     <Compile Update="View\AddBikeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\AddCommentWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\AdminBikeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -14,10 +17,16 @@
     <Compile Update="View\BikeBookingWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\BikeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EditBikeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\MyBookingsWindow.xaml.cs">
+    <Compile Update="View\AllBookingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\HistoryWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

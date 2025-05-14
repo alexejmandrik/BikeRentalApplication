@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BikeRentalApplication.View"
         mc:Ignorable="d"
-        Title="Добавление велосипеда" Height="400" Width="550"
+        Title="Добавление велосипеда" Height="450" Width="550"
     WindowStartupLocation="CenterScreen"
         Name="AddBikeWind"
         ResizeMode="CanMinimize">
@@ -26,6 +26,9 @@
 
                 <Label Content="Описание:"/>
                 <TextBox Name="DescriptionBlock" Text="{Binding BikeDescription}" Margin="0,0,0,10"/>
+
+                <Label Content="Полное описание:"/>
+                <TextBox Name="FullDescriptionBlock" Text="{Binding BikeFullDescription}" Margin="0,0,0,10"/>
 
                 <Label Content="Путь к фото:"/>
                 <TextBox Name="PathBlock" Text="{Binding BikeImagePath}" Margin="0,0,0,10"/>

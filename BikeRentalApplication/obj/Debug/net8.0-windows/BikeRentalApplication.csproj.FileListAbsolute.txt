@@ -6,7 +6,6 @@ D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\BikeBookingWindow.g.cs
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\EditBikeWindow.g.cs
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\MainWindow.g.cs
-D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\MyBookingsWindow.g.cs
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\App.g.cs
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\BikeRentalApplication_MarkupCompile.cache
@@ -182,7 +181,6 @@ D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\BikeBookingWindow.baml
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\EditBikeWindow.baml
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\MainWindow.baml
-D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\MyBookingsWindow.baml
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\BikeRentalApplication.g.resources
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\BikeRentalApplication.GeneratedMSBuildEditorConfig.editorconfig
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\BikeRentalApplication.AssemblyInfoInputs.cache
@@ -195,3 +193,12 @@ D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\BikeRentalApplication.pdb
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\BikeRentalApplication.genruntimeconfig.cache
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\ref\BikeRentalApplication.dll
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\AllBookingsWindow.g.cs
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\AllBookingsWindow.baml
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\HistoryWindow.g.cs
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\HistoryWindow.baml
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\BikeWindow.g.cs
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\BikeWindow.baml
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\AddCommentWindow.g.cs
+D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\View\AddCommentWindow.baml

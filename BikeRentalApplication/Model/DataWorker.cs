@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows;
 using BikeRentalApplication.Model.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SharpVectors.Dom;
 
 namespace BikeRentalApplication.Model
 {
@@ -36,7 +38,8 @@ namespace BikeRentalApplication.Model
                                 PhoneNumber = phoneNumber,
                                 Password = PasswordService.HashPassword(password),
                                 UserStatus = userStatus,
-                                IsBlocked = false
+                                IsBlocked = false,
+                                BonusCounter = 0
                             };
 
                             await db.Users.AddAsync(newUser);
@@ -74,7 +77,7 @@ namespace BikeRentalApplication.Model
             return result;
         }
 
-        public static bool EditUser(User oldUser, string NewUserName, string NewName, string NewSurname, string NewPatronymic, string NewPhoneNumber, string NewPassword, string NewUserStatus)
+        /*public static bool EditUser(User oldUser, string NewUserName, string NewName, string NewSurname, string NewPatronymic, string NewPhoneNumber, string NewPassword, string NewUserStatus)
         {
             bool result = false;
             using (ApplicationContext db = new ApplicationContext())
@@ -95,7 +98,8 @@ namespace BikeRentalApplication.Model
                 }
             }
             return result;
-        }
+        }*/
+
         public static bool ChangeIsBlockedUser(User oldUser)
         {
             bool result = false;
@@ -119,6 +123,14 @@ namespace BikeRentalApplication.Model
             {
                 var result = db.Users.ToList();
                 return result;
+            }
+        }
+
+        public static User? GetUserById(int id)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.Users.FirstOrDefault(el => el.Id == id);
             }
         }
 
@@ -185,8 +197,8 @@ namespace BikeRentalApplication.Model
 
         #endregion
 
-        #region CRUD BIKE DB
-        public static bool CreateBike(string name, string description, string imagePath, decimal price)
+        #region BIKE DB
+        public static bool CreateBike(string name, string description, string fullDescription, string imagePath, decimal price)
         {
             bool result = false;
             using (ApplicationContext db = new ApplicationContext())
@@ -198,6 +210,7 @@ namespace BikeRentalApplication.Model
                     {
                         Name = name,
                         Description = description,
+                        FullDescription = fullDescription,
                         ImagePath = imagePath,
                         Price = price
                     };
@@ -224,8 +237,7 @@ namespace BikeRentalApplication.Model
             }
 
         }
-
-        public static bool EditBike(Bike oldBike, string newName, string newDescription, string newImagePath, decimal newPrice)
+        public static bool EditBike(Bike oldBike, string newName, string newDescription, string newFullDescription, string newImagePath, decimal newPrice)
         {
             bool result = false;
             using (ApplicationContext db = new ApplicationContext())
@@ -235,6 +247,7 @@ namespace BikeRentalApplication.Model
                 {
                     Bike.Name = newName;
                     Bike.Description = newDescription;
+                    Bike.FullDescription = newFullDescription;
                     Bike.ImagePath = newImagePath;
                     Bike.Price = newPrice;
                     db.SaveChanges();
@@ -262,8 +275,8 @@ namespace BikeRentalApplication.Model
 
         #endregion
 
-        #region CRUD BUKING
-        public static string CreateBikeBooking(int userId, int bikeId, DateTime startDateTime, DateTime endDateTime, string? comment, string status, decimal price)
+        #region BUKING DB
+        public static string CreateBikeBooking(int userId, int bikeId, DateTime startDateTime, DateTime endDateTime, string? comment, string status, decimal price, bool isPaid)
         {
             string result = "Данное время уже занято!";
             if (startDateTime <= DateTime.Now)
@@ -287,7 +300,8 @@ namespace BikeRentalApplication.Model
                         EndDateTime = endDateTime,
                         Comment = comment,
                         BookingStatus = status,
-                        Price = price
+                        Price = price,
+                        IsPaid = isPaid
                     };
 
                     db.BikeBookings.Add(newBooking);
@@ -295,7 +309,6 @@ namespace BikeRentalApplication.Model
                     result = "Успешно забронировано!";
                 }
             }
-
             return result;
         }
 
@@ -332,7 +345,82 @@ namespace BikeRentalApplication.Model
                             .ToList();
             }
         }
-     
+
+        public static List<BikeBooking> GetAllBookings()
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                return db.BikeBookings.Include(b => b.User).ToList();
+            }
+        }
+
+        public static void UpdateBookingStatusIfNeeded(BikeBooking booking)
+        {
+            var now = DateTime.Now;
+
+            string newStatus;
+
+            if (now < booking.StartDateTime)
+                newStatus = "Забронировано";
+            else if (now >= booking.StartDateTime && now <= booking.EndDateTime)
+                newStatus = "Активно";
+            else
+                newStatus = "Завершено";
+
+            if (booking.BookingStatus != newStatus)
+            {
+                using (var context = new ApplicationContext())
+                {
+                    var bookingInDb = context.BikeBookings.FirstOrDefault(b => b.Id == booking.Id);
+                    if (bookingInDb != null)
+                    {
+                        bookingInDb.BookingStatus = newStatus;
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region COMMENTS DB
+        public static string AddComment(Bike bike, User user, string comment,bool visibility)
+        {
+            if (bike == null || user == null || string.IsNullOrWhiteSpace(comment))
+                return "Ошибка: Недостаточно данных для добавления комментария.";
+            try
+            {
+                using (ApplicationContext db = new ApplicationContext())
+                {
+                    var newComment = new Comments
+                    {
+                        Comment = comment,
+                        Bike = db.Bikes.FirstOrDefault(b => b.Id == bike.Id),
+                        User = db.Users.FirstOrDefault(u => u.Id == user.Id),
+                        Visibility = false
+                    };
+
+                    db.Comments.Add(newComment);
+                    db.SaveChanges();
+
+                    return "Комментарий успешно добавлен.";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Ошибка при добавлении комментария: {ex.Message}";
+            }
+        }
+
+        public static List<Comments> GetCommentsByBikeId(int bikeId)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.Comments
+                  .Where(c => c.Bike.Id == bikeId)
+                 .Include(c => c.User) 
+                 .ToList();
+            }
+        }
+        #endregion
     }
-    #endregion
 }

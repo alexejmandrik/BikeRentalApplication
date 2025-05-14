@@ -17,5 +17,6 @@ namespace BikeRentalApplication.Model
         public required string Password { get; set; }
         public required string UserStatus { get; set; }
         public bool IsBlocked { get; set; }
+        public int BonusCounter { get; set; }
     }
 }

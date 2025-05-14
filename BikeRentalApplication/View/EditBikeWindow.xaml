@@ -26,13 +26,16 @@
                 <Label Content="Описание:"/>
                 <TextBox Name="DescriptionBlock" Text="{Binding BikeDescription}" Margin="0,0,0,10"/>
 
+                <Label Content="Полное писание:"/>
+                <TextBox Name="FullDescriptionBlock" Text="{Binding BikeFullDescription}" Margin="0,0,0,10"/>
+
                 <Label Content="Путь к фото:"/>
                 <TextBox Name="PathBlock" Text="{Binding BikeImagePath}" Margin="0,0,0,10"/>
 
                 <Label Content="Цена:"/>
                 <TextBox Name="PriceBlock" PreviewTextInput="PrewiewTextInput" Text="{Binding BikePrice}" Margin="0,0,0,10"/>
 
-                <Button Content="Редактировать" Command="{Binding EditBike}" CommandParameter="{Binding ElementName = EditBikeWind}" Padding="10,5" HorizontalAlignment="Stretch"/>
+                <Button Content="Редактировать" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=EditBikeWind}" Padding="10,5" HorizontalAlignment="Stretch"/>
             </StackPanel>
         </Grid>
 
