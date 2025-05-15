@@ -154,6 +154,13 @@ namespace BikeRentalApplication.ViewModel
                     foreach (var booking in userBookings)
                     {
                         await Task.Run(() => DataWorker.UpdateBookingStatusIfNeeded(booking));
+                    }
+
+                    var userBooking = await Task.Run(() => DataWorker.GetUserBookings(SessionManager.CurrentUser));
+
+                    foreach (var booking in userBooking)
+                    {
+                        await Task.Run(() => DataWorker.UpdateBookingStatusIfNeeded(booking));
 
                         if (booking.BookingStatus == "Завершено")
                         {

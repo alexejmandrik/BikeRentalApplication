@@ -421,6 +421,16 @@ namespace BikeRentalApplication.Model
                  .ToList();
             }
         }
+        public static List<Comments> GetAllComments()
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.Comments
+                 .Include(c => c.User)
+                 .Include(c => c.Bike)
+                 .ToList();
+            }
+        }
         #endregion
     }
 }

@@ -11,6 +11,9 @@
     <Compile Update="View\AdminBikeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\AdminCommentsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\AuthWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -68,7 +68,9 @@
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                <Button Content="Модерация " Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenAdminCommentsWindow}"/>
                 <Button Content="Назад" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenProfileWindowCommand}"/>
+
             </StackPanel>
         </Grid>
 

@@ -10,6 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\**" />
+    <Compile Remove="Controls\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <EmbeddedResource Remove="Controls\**" />
+    <None Remove="Commands\**" />
+    <None Remove="Controls\**" />
+    <Page Remove="Commands\**" />
+    <Page Remove="Controls\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\CannondaleScalpel.png" />
     <None Remove="Resources\Cube.jpg" />
     <None Remove="Resources\CubeStereoOne22Pro.jpg" />

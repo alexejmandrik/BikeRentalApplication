@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\App.xaml
-12-1825448975
+13746793934
 
-50438206459
+52-1511512837
 2601260868541
-Resources\StringResources.en-US.xaml;Resources\StringResources.ru-RU.xaml;View\AddBikeWindow.xaml;View\AddCommentWindow.xaml;View\AdminBikeWindow.xaml;View\AllBookingsWindow.xaml;View\AuthWindow.xaml;View\BikeBookingWindow.xaml;View\BikeWindow.xaml;View\EditBikeWindow.xaml;View\HistoryWindow.xaml;View\MainWindow.xaml;
+Resources\StringResources.en-US.xaml;Resources\StringResources.ru-RU.xaml;View\AddBikeWindow.xaml;View\AddCommentWindow.xaml;View\AdminBikeWindow.xaml;View\AdminCommentsWindow.xaml;View\AllBookingsWindow.xaml;View\AuthWindow.xaml;View\BikeBookingWindow.xaml;View\BikeWindow.xaml;View\EditBikeWindow.xaml;View\HistoryWindow.xaml;View\MainWindow.xaml;
 
-True
+False
 

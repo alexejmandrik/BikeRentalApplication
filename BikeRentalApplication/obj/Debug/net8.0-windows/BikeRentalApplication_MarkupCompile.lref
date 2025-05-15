@@ -1,7 +1,9 @@
-﻿
+﻿D:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\App.xaml;;
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\AddBikeWindow.xaml;;
+FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\AddCommentWindow.xaml;;
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\AdminBikeWindow.xaml;;
+FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\AdminCommentsWindow.xaml;;
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\AllBookingsWindow.xaml;;
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\AuthWindow.xaml;;
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\BikeBookingWindow.xaml;;
@@ -9,5 +11,4 @@ FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\BikeWin
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\EditBikeWindow.xaml;;
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\HistoryWindow.xaml;;
 FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\MainWindow.xaml;;
-FD:\Visual_Lab_4sem\OOP\BikeRentalApplication\BikeRentalApplication\View\AddCommentWindow.xaml;;
 

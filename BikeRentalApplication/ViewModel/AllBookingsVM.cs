@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks; 
 using System.Windows;
 using System.Windows.Input;
+using BikeRentalApplication.View;
 
 namespace BikeRentalApplication.ViewModel
 {
@@ -24,6 +25,7 @@ namespace BikeRentalApplication.ViewModel
                 RentedBike = rentedBike;
                 BookingUser = user;
             }
+
 
             public string UserName => BookingUser.UserName;
 
@@ -102,6 +104,31 @@ namespace BikeRentalApplication.ViewModel
                 _loadingMessage = value;
                 OnPropertyChanged();
             }
+        }
+
+        private void OpenAdminCommentsWindowMethod()
+        {
+            AdminCommentsWindow adminCommentsWindow = new AdminCommentsWindow();
+            SetCenterPositionAndOpen(adminCommentsWindow);
+        }
+
+        private RelayCommand openAdminCommentsWindow;
+        public RelayCommand OpenAdminCommentsWindow
+        {
+            get
+            {
+                return openAdminCommentsWindow ?? new RelayCommand(obj =>
+                {
+                    OpenAdminCommentsWindowMethod();
+                });
+            }
+        }
+
+        public void SetCenterPositionAndOpen(Window window)
+        {
+            window.Owner = Application.Current.MainWindow;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.ShowDialog();
         }
 
         public ICommand CancelBookingCommand { get; }

@@ -308,7 +308,12 @@ namespace BikeRentalApplication.ViewModel
                     foreach (var booking in userBookingInfos)
                     {
                         await Task.Run(() => DataWorker.UpdateBookingStatusIfNeeded(booking));
+                    }
 
+                    var userBookingInfo = await Task.Run(() => DataWorker.GetUserBookings(SessionManager.CurrentUser));
+
+                    foreach (var booking in userBookingInfo)
+                    {
                         if (booking.BookingStatus == "Активно" || booking.BookingStatus == "Забронировано")
                         {
                             var bike = await Task.Run(() => DataWorker.GetBikeById(booking.BikeId));
