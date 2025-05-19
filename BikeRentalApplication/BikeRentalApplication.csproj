@@ -23,20 +23,30 @@
   <ItemGroup>
     <None Remove="Resources\CannondaleScalpel.png" />
     <None Remove="Resources\Cube.jpg" />
+    <None Remove="Resources\CubeReaction_C62.jpg" />
     <None Remove="Resources\CubeStereoOne22Pro.jpg" />
     <None Remove="Resources\iconca.ico" />
     <None Remove="Resources\KTMUltraFun.jpg" />
     <None Remove="Resources\Logo.png" />
+    <None Remove="Resources\MainBike.jpg" />
     <None Remove="Resources\OrbeaAvantH60.jpg" />
     <None Remove="Resources\OrbeaOIZ_H30.jpg" />
     <None Remove="Resources\OrbeaORCA_M40.jpg" />
+    <None Remove="Resources\Trek.jpg" />
     <None Remove="Resources\TrekMarlin5.jpg" />
     <None Remove="Resources\TrekSlash9_9.jpg" />
     <None Remove="Resources\TrekStache2017.jpg" />
+    <None Remove="Resources\TrekStache2018.jpg" />
     <None Remove="Resources\TrekStache5.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Resources\StringResources.en-US.xaml" />
+    <Page Remove="Resources\StringResources.ru-RU.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GMap.NET.Core" Version="2.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
@@ -51,16 +61,20 @@
   <ItemGroup>
     <Resource Include="Resources\CannondaleScalpel.png" />
     <Resource Include="Resources\Cube.jpg" />
+    <Resource Include="Resources\CubeReaction_C62.jpg" />
     <Resource Include="Resources\CubeStereoOne22Pro.jpg" />
     <Resource Include="Resources\iconca.ico" />
     <Resource Include="Resources\KTMUltraFun.jpg" />
     <Resource Include="Resources\Logo.png" />
+    <Resource Include="Resources\MainBike.jpg" />
     <Resource Include="Resources\OrbeaAvantH60.jpg" />
     <Resource Include="Resources\OrbeaOIZ_H30.jpg" />
     <Resource Include="Resources\OrbeaORCA_M40.jpg" />
+    <Resource Include="Resources\Trek.jpg" />
     <Resource Include="Resources\TrekMarlin5.jpg" />
     <Resource Include="Resources\TrekSlash9_9.jpg" />
     <Resource Include="Resources\TrekStache2017.jpg" />
+    <Resource Include="Resources\TrekStache2018.jpg" />
     <Resource Include="Resources\TrekStache5.jpg" />
   </ItemGroup>
 

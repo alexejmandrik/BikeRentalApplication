@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using BikeRentalApplication.View;
+using System.Globalization;
+using System.Collections.Generic; 
 
 namespace BikeRentalApplication.ViewModel
 {
@@ -26,26 +28,24 @@ namespace BikeRentalApplication.ViewModel
                 BookingUser = user;
             }
 
-
             public string UserName => BookingUser.UserName;
-
             public int Id => Booking.Id;
             public DateTime StartDateTime => Booking.StartDateTime;
             public DateTime EndDateTime => Booking.EndDateTime;
             public string BookingStatus => Booking.BookingStatus;
             public decimal Price => Booking.Price;
-
             public string BikeName => RentedBike.Name;
             public string BikeImagePath => RentedBike.ImagePath;
-
-            public string FormattedPrice => Price > 0 ? $"{Price:C}" : "Бесплатно";
+            public bool IsPaid => Booking.IsPaid;
+            public string PaymentStatus => IsPaid ? "Оплачен" : "Не оплачен";
+            public string FormattedPrice => Price > 0 ? string.Format(new CultureInfo("ru-BY"), "{0:C}", Price) : "Бесплатно";
             public Visibility PriceVisibility => Price > 0 ? Visibility.Visible : Visibility.Collapsed;
 
             public Visibility CancelButtonVisibility
             {
                 get
                 {
-                    return (BookingStatus == "Активно" || BookingStatus == "Подтверждено") && EndDateTime > DateTime.Now
+                    return (BookingStatus == "Активно" || BookingStatus == "Забронировано") && EndDateTime > DateTime.Now
                         ? Visibility.Visible
                         : Visibility.Collapsed;
                 }
@@ -69,6 +69,8 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
+        private List<DisplayableBookingItem> _allLoadedBookings = new List<DisplayableBookingItem>();
+
         private bool _isLoading;
         public bool IsLoading
         {
@@ -87,12 +89,15 @@ namespace BikeRentalApplication.ViewModel
             get => _isHistoryEmpty;
             set
             {
-                _isHistoryEmpty = value;
-                OnPropertyChanged();
+                if (_isHistoryEmpty != value)
+                {
+                    _isHistoryEmpty = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsHistoryNotEmpty));
+                }
             }
         }
-
-
+        public bool IsHistoryNotEmpty => !_isHistoryEmpty;
         public bool IsContentVisible => !IsLoading;
 
         private string _loadingMessage;
@@ -106,23 +111,84 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
+        public ObservableCollection<string> PaymentSortOptions { get; }
+        public ObservableCollection<string> BookingStatusSortOptions { get; }
+
+        private string _selectedPaymentSortOption;
+        public string SelectedPaymentSortOption
+        {
+            get => _selectedPaymentSortOption;
+            set
+            {
+                if (_selectedPaymentSortOption != value)
+                {
+                    _selectedPaymentSortOption = value;
+                    OnPropertyChanged();
+                    ApplySortingAndFiltering();
+                }
+            }
+        }
+
+        private string _selectedBookingStatusSortOption;
+        public string SelectedBookingStatusSortOption
+        {
+            get => _selectedBookingStatusSortOption;
+            set
+            {
+                if (_selectedBookingStatusSortOption != value)
+                {
+                    _selectedBookingStatusSortOption = value;
+                    OnPropertyChanged();
+                    ApplySortingAndFiltering();
+                }
+            }
+        }
+
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged();
+                    ApplySortingAndFiltering();
+                }
+            }
+        }
+        public ICommand ResetFiltersCommand { get; }
+
+
+        private void OpenAuthWindowMethod()
+        {
+            AuthWindow authWindow = new AuthWindow();
+            Application.Current.MainWindow = authWindow;
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is AllBookingsWindow)?.Close();
+            Application.Current.MainWindow.Show();
+        }
+        private void OpenAdminBikeWindowMethod()
+        {
+            AdminBikeWindow adminBikeWindow = new AdminBikeWindow();
+            Application.Current.MainWindow = adminBikeWindow;
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is AllBookingsWindow)?.Close();
+            Application.Current.MainWindow.Show();
+        }
         private void OpenAdminCommentsWindowMethod()
         {
             AdminCommentsWindow adminCommentsWindow = new AdminCommentsWindow();
-            SetCenterPositionAndOpen(adminCommentsWindow);
+            Application.Current.MainWindow = adminCommentsWindow;
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is AllBookingsWindow)?.Close();
+            Application.Current.MainWindow.Show();
         }
 
+        private RelayCommand openAuthWindow;
+        private RelayCommand openAdminBikeWindow;
         private RelayCommand openAdminCommentsWindow;
-        public RelayCommand OpenAdminCommentsWindow
-        {
-            get
-            {
-                return openAdminCommentsWindow ?? new RelayCommand(obj =>
-                {
-                    OpenAdminCommentsWindowMethod();
-                });
-            }
-        }
+        public RelayCommand OpenAuthWindow => openAuthWindow ??= new RelayCommand(obj => OpenAuthWindowMethod());
+        public RelayCommand OpenAdminBikeWindow => openAdminBikeWindow ??= new RelayCommand(obj => OpenAdminBikeWindowMethod());
+        public RelayCommand OpenAdminCommentsWindow => openAdminCommentsWindow ??= new RelayCommand(obj => OpenAdminCommentsWindowMethod());
 
         public void SetCenterPositionAndOpen(Window window)
         {
@@ -135,17 +201,19 @@ namespace BikeRentalApplication.ViewModel
         public ICommand ViewBookingDetailsCommand { get; }
         public ICommand RefreshBookingsCommand { get; }
 
-        public ICommand GoToMainWindowCommand { get; }
-        public ICommand OpenBonusesWindowCommand { get; }
-        public ICommand OpenMapWindowCommand { get; }
-        public ICommand OpenProfileWindowCommand { get; }
-
-
         public AllBookingsVM()
         {
             DisplayableBookings = new ObservableCollection<DisplayableBookingItem>();
 
-          
+            PaymentSortOptions = new ObservableCollection<string> { "По умолчанию", "Сначала оплаченные", "Сначала неоплаченные" };
+            _selectedPaymentSortOption = "По умолчанию";
+
+            BookingStatusSortOptions = new ObservableCollection<string> { "По умолчанию", "Сначала активные", "Сначала забронированные" };
+            _selectedBookingStatusSortOption = "По умолчанию";
+
+            _searchText = string.Empty;
+            ResetFiltersCommand = new RelayCommand(_ => ResetAllFiltersAndSorts());
+
             CancelBookingCommand = new RelayCommand(async (p) => await CancelBookingActionAsync(p as DisplayableBookingItem), (p) => p is DisplayableBookingItem);
             ViewBookingDetailsCommand = new RelayCommand((p) => ViewBookingDetailsAction(p as DisplayableBookingItem), (p) => p is DisplayableBookingItem);
             RefreshBookingsCommand = new RelayCommand(async (_) => await LoadActiveBookingsAsync());
@@ -153,46 +221,44 @@ namespace BikeRentalApplication.ViewModel
             _ = LoadActiveBookingsAsync();
         }
 
-
         private async Task LoadActiveBookingsAsync()
         {
             IsLoading = true;
             LoadingMessage = "Загрузка всех заказов...";
-            DisplayableBookings.Clear();
+            _allLoadedBookings.Clear();
 
             try
             {
-                var allBooking = await Task.Run(() => DataWorker.GetAllBookings());
+                var allBookingEntities = await Task.Run(() => DataWorker.GetAllBookings());
 
-                if (allBooking != null)
+                if (allBookingEntities != null)
                 {
-                    foreach (var booking in allBooking)
+                    foreach (var booking in allBookingEntities)
                     {
                         await Task.Run(() => DataWorker.UpdateBookingStatusIfNeeded(booking));
                     }
-                    var allBookings = await Task.Run(() => DataWorker.GetAllBookings());
-                    var filteredBookings = allBookings
+                    var updatedBookingEntities = await Task.Run(() => DataWorker.GetAllBookings());
+                    var relevantBookings = updatedBookingEntities
                         .Where(b => b.BookingStatus == "Активно" || b.BookingStatus == "Забронировано")
                         .ToList();
 
-                    foreach (var booking in filteredBookings)
+                    foreach (var booking in relevantBookings)
                     {
                         var bike = await Task.Run(() => DataWorker.GetBikeById(booking.BikeId));
                         var user = await Task.Run(() => DataWorker.GetUserById(booking.UserId));
-
-                        DisplayableBookings.Add(new DisplayableBookingItem(booking, bike, user));
+                        if (bike != null && user != null)
+                        {
+                            _allLoadedBookings.Add(new DisplayableBookingItem(booking, bike, user));
+                        }
                     }
                 }
-
-                LoadingMessage = DisplayableBookings.Any()
-                    ? string.Empty
-                    : "Нет заказов для отображения.";
-
-                IsHistoryEmpty = !DisplayableBookings.Any();
+                ApplySortingAndFiltering();
             }
             catch (Exception ex)
             {
                 LoadingMessage = "Ошибка при загрузке заказов.";
+                _allLoadedBookings.Clear();
+                ApplySortingAndFiltering();
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -201,8 +267,119 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
+        private void ApplySortingAndFiltering()
+        {
+            if (_allLoadedBookings == null) return;
+
+            IEnumerable<DisplayableBookingItem> filteredAndSortedBookings = _allLoadedBookings;
+
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                string lowerSearchText = SearchText.ToLowerInvariant();
+                filteredAndSortedBookings = filteredAndSortedBookings.Where(b => b.UserName.ToLowerInvariant().Contains(lowerSearchText));
+            }
+
+            IOrderedEnumerable<DisplayableBookingItem> sortedBookings = null;
+            bool primarySortApplied = false;
+
+            if (SelectedBookingStatusSortOption == "Сначала активные")
+            {
+                sortedBookings = filteredAndSortedBookings.OrderByDescending(b => b.BookingStatus == "Активно");
+                primarySortApplied = true;
+            }
+            else if (SelectedBookingStatusSortOption == "Сначала забронированные")
+            {
+                sortedBookings = filteredAndSortedBookings.OrderBy(b => b.BookingStatus == "Активно");
+                primarySortApplied = true;
+            }
+
+            if (SelectedPaymentSortOption == "Сначала оплаченные")
+            {
+                if (primarySortApplied && sortedBookings != null)
+                    sortedBookings = sortedBookings.ThenByDescending(b => b.IsPaid);
+                else
+                {
+                    sortedBookings = filteredAndSortedBookings.OrderByDescending(b => b.IsPaid);
+                    primarySortApplied = true;
+                }
+            }
+            else if (SelectedPaymentSortOption == "Сначала неоплаченные")
+            {
+                if (primarySortApplied && sortedBookings != null)
+                    sortedBookings = sortedBookings.ThenBy(b => b.IsPaid);
+                else
+                {
+                    sortedBookings = filteredAndSortedBookings.OrderBy(b => b.IsPaid);
+                    primarySortApplied = true;
+                }
+            }
+
+            if (primarySortApplied && sortedBookings != null)
+            {
+                sortedBookings = sortedBookings.ThenByDescending(b => b.StartDateTime);
+            }
+            else if (sortedBookings == null) 
+            {
+                sortedBookings = filteredAndSortedBookings.OrderByDescending(b => b.StartDateTime);
+            }
 
 
+            DisplayableBookings.Clear();
+            if (sortedBookings != null)
+            {
+                foreach (var item in sortedBookings.ToList()) 
+                {
+                    DisplayableBookings.Add(item);
+                }
+            }
+
+
+            IsHistoryEmpty = !DisplayableBookings.Any();
+         
+             if (IsHistoryEmpty)
+            {
+                if (!_allLoadedBookings.Any()) 
+                {
+                    LoadingMessage = "Нет активных или забронированных заказов для отображения.";
+                }
+                else 
+                {
+                    LoadingMessage = "Нет заказов, соответствующих выбранным критериям поиска/фильтрации.";
+                }
+            }
+            else
+            {
+                LoadingMessage = string.Empty; 
+            }
+        }
+
+        private void ResetAllFiltersAndSorts()
+        {
+            bool changed = false;
+            if (_selectedBookingStatusSortOption != "По умолчанию")
+            {
+                _selectedBookingStatusSortOption = "По умолчанию";
+                OnPropertyChanged(nameof(SelectedBookingStatusSortOption));
+                changed = true;
+            }
+            if (_selectedPaymentSortOption != "По умолчанию")
+            {
+                _selectedPaymentSortOption = "По умолчанию";
+                OnPropertyChanged(nameof(SelectedPaymentSortOption));
+                changed = true;
+            }
+            if (!string.IsNullOrEmpty(_searchText))
+            {
+                _searchText = string.Empty;
+                OnPropertyChanged(nameof(SearchText));
+                changed = true;
+            }
+
+            if (changed || DisplayableBookings.Count != _allLoadedBookings.Count)
+            {
+                ApplySortingAndFiltering();
+            }
+        }
 
         private async Task CancelBookingActionAsync(DisplayableBookingItem itemToCancel)
         {
@@ -219,17 +396,21 @@ namespace BikeRentalApplication.ViewModel
                 try
                 {
                     BikeBooking bookingToDeleteStub = new BikeBooking { Id = itemToCancel.Id };
-
                     bool success = await Task.Run(() => DataWorker.DeleteBikeBooking(bookingToDeleteStub));
 
                     if (success)
                     {
                         MessageBox.Show("Бронирование успешно отменено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                        await LoadActiveBookingsAsync();
+                        var itemInMasterList = _allLoadedBookings.FirstOrDefault(b => b.Id == itemToCancel.Id);
+                        if (itemInMasterList != null)
+                        {
+                            _allLoadedBookings.Remove(itemInMasterList);
+                        }
+                        ApplySortingAndFiltering();
                     }
                     else
                     {
-                        MessageBox.Show("Не удалось отменить бронирование (возможно, оно уже было удалено или не найдено).", "Ошибка отмены", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Не удалось отменить бронирование.", "Ошибка отмены", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 catch (Exception ex)
@@ -239,7 +420,6 @@ namespace BikeRentalApplication.ViewModel
                 finally
                 {
                     IsLoading = false;
-                    LoadingMessage = string.Empty;
                 }
             }
         }
@@ -249,12 +429,12 @@ namespace BikeRentalApplication.ViewModel
             if (itemDetails == null) return;
             MessageBox.Show($"Просмотр деталей для бронирования велосипеда: {itemDetails.BikeName}\n" +
                               $"ID брони: {itemDetails.Id}\n" +
+                              $"Пользователь: {itemDetails.UserName}\n" +
                               $"Статус: {itemDetails.BookingStatus}\n" +
                               $"Начало: {itemDetails.StartDateTime:g}\n" +
                               $"Окончание: {itemDetails.EndDateTime:g}",
                               "Детали бронирования", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

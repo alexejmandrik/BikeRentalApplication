@@ -5,28 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BikeRentalApplication.View"
         mc:Ignorable="d"
-        Title="Информация о велосипеде" Height="500" Width="700"
+        WindowState="Maximized"
+        Title="Информация о велосипеде" Height="700" Width="1000" MinHeight="740" MinWidth="1000"
         WindowStartupLocation="CenterOwner"
         Background="WhiteSmoke">
 
+    <Window.Resources>
+        <local:BoolToTextDecorationConverter x:Key="UndelineOnHoverConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}"
+                               TextDecorations="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsMouseOver, Converter={StaticResource UndelineOnHoverConverter}}"
+                               Foreground="{TemplateBinding Foreground}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
         <Grid Grid.Row="0" Background="#FF1F1F1F" Height="60">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                <Ellipse Width="40" Height="40" VerticalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resources/Logo.png" Stretch="Uniform"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Text="ВелоGo" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20,0,0,0">
+                <TextBlock Text="📞" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="0,0,0,2"/>
+                <TextBlock Text="+375 (29) 123 45 67" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 111 22 33" Foreground="White" FontSize="10"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock Text="Информация о велосипеде" 
-                           Foreground="White" 
-                           FontSize="20" 
-                           FontWeight="Bold" 
-                           VerticalAlignment="Center"/>
+                   Foreground="White" 
+                   FontSize="20" 
+                   FontWeight="Bold" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                <Button Content="Главная" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenMainWindow}"/>
+                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenAuthWindow}"/>
             </StackPanel>
         </Grid>
 
-        <!-- Основная информация -->
+
         <Grid Grid.Row="1" Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -39,7 +93,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Border Width="250" Height="250" Margin="0,0,20,0" CornerRadius="5" BorderBrush="LightGray" BorderThickness="1" VerticalAlignment="Top">
+                <Border Width="550" Height="350" Margin="0,0,20,0" CornerRadius="5" BorderBrush="LightGray" BorderThickness="1" VerticalAlignment="Top">
                     <Image Source="{Binding ImagePath, Mode=OneWay}" Stretch="Uniform"/>
                 </Border>
 
@@ -52,14 +106,19 @@
                         <Run Text="{Binding Description, Mode=OneWay}"/>
                     </TextBlock>
 
+                    <TextBlock FontSize="16" Margin="0,0,0,10" TextWrapping="Wrap">
+                        <Run Text="Подробное описание: " FontWeight="SemiBold"/>
+                        <LineBreak/>
+                        <Run Text="{Binding  FullDescription, Mode=OneWay}"/>    
+                    </TextBlock>
+
                     <TextBlock FontSize="16" Margin="0,10,0,6">
                         <Run Text="Цена: " FontWeight="SemiBold"/>
-                        <Run Text="{Binding Price, Mode=OneWay, StringFormat={}{0:C}}"/>
+                        <Run Text="{Binding Price, Mode=OneWay, StringFormat='Цена: {0} Br/час' }"/>
                     </TextBlock>
                 </StackPanel>
             </Grid>
 
-            <!-- ✅ Комментарии -->
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,20,0,0">
                 <TextBlock Text="Комментарии:" 
                            FontSize="18" 

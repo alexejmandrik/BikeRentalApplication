@@ -123,6 +123,55 @@ namespace BikeRentalApplication.ViewModel
 
         public ICommand RefreshBookingsCommand { get; }
 
+        private void OpenAuthWindowMethod()
+        {
+            AuthWindow authWindow = new AuthWindow();
+            Application.Current.MainWindow = authWindow;
+
+            Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is HistoryWindow)?
+            .Close();
+
+            Application.Current.MainWindow.Show();
+        }
+        private void OpenMainWindowMethod()
+        {
+            MainWindow mainWindow = new MainWindow();
+            Application.Current.MainWindow = mainWindow;
+
+            Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is HistoryWindow)?
+            .Close();
+
+            Application.Current.MainWindow.Show();
+        }
+
+        private RelayCommand openAuthWindow;
+        private RelayCommand openMainWindow;
+
+        public RelayCommand OpenAuthWindow
+        {
+            get
+            {
+                return openAuthWindow ?? new RelayCommand(obj =>
+                {
+                    OpenAuthWindowMethod();
+                });
+            }
+        }
+        public RelayCommand OpenMainWindow
+        {
+            get
+            {
+                return openMainWindow ?? new RelayCommand(obj =>
+                {
+                    OpenMainWindowMethod();
+                });
+            }
+        }
+
         public HistoryVM()
         {
             DisplayableBookings = new ObservableCollection<DisplayableBookingItem>();

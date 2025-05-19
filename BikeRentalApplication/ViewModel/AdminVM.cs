@@ -33,10 +33,15 @@ namespace BikeRentalApplication.ViewModel
         }
 
         public ICommand SwitchCommand { get; }
-
+        public RelayCommand AddNewBike { get; private set; }
+        public RelayCommand DeleteItem { get; private set; }
+        public RelayCommand SetIsBlocked { get; private set; }
         public AdminVM()
         {
             SwitchCommand = new RelayCommand(SwitchMode);
+            AddNewBike = new RelayCommand(AddNewBikeExecute);
+            DeleteItem = new RelayCommand(DeleteItemExecute);
+            SetIsBlocked = new RelayCommand(SetIsBlockedExecute);
         }
         private void SwitchMode(object? obj)
         {
@@ -71,7 +76,14 @@ namespace BikeRentalApplication.ViewModel
         private void OpenAuthWindowMethod()
         {
             AuthWindow authWindow = new AuthWindow();
-            SetCenterPositionAndOpen(authWindow);
+            Application.Current.MainWindow = authWindow;
+
+            Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is AdminBikeWindow)?
+            .Close();
+
+            Application.Current.MainWindow.Show();
         }
         private void OpenAddBikeWindowMethod()
         {
@@ -94,7 +106,14 @@ namespace BikeRentalApplication.ViewModel
         private void OpenAllBookingsWindowMethod()
         {
             AllBookingsWindow allBookingsWindow = new AllBookingsWindow();
-            SetCenterPositionAndOpen(allBookingsWindow);
+            Application.Current.MainWindow = allBookingsWindow;
+
+            Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is AdminBikeWindow)?
+            .Close();
+
+            Application.Current.MainWindow.Show();
         }
         #endregion
 
@@ -166,110 +185,88 @@ namespace BikeRentalApplication.ViewModel
         public decimal BikePrice { get; set; }
 
 
-        #region CRUD BIKE METHODS
-        private RelayCommand addNewBike;
-            public RelayCommand AddNewBike
-            {
-                get
-                {
-                    return addNewBike ?? new RelayCommand(obj =>
-                    {
-                        string basePath = AppDomain.CurrentDomain.BaseDirectory;
-                        string projectDir = Path.GetFullPath(Path.Combine(basePath, @"..\..\..\"));
-                        string fullPath = projectDir + "\\Resources\\" + BikeImagePath;
-                        Window wnd = obj as Window;
-
-                        bool resultStr = false;
-                        bool valid = true;
-                        if (BikeName == null || BikeName.Replace(" ", "").Length == 0)
-                        {
-                            SetRedBlockControl(wnd, "NameBlock");
-                            valid = false;
-                        }
-                        if (BikeDescription == null || BikeDescription.Replace(" ", "").Length == 0)
-                        {
-                            SetRedBlockControl(wnd, "DescriptionBlock");
-                            valid = false;
-                        }
-                        if (BikeFullDescription == null || BikeFullDescription.Replace(" ", "").Length == 0)
-                        {
-                            SetRedBlockControl(wnd, "FullDescriptionBlock");
-                            valid = false;
-                        }
-                        if (BikeImagePath == null || BikeImagePath.Replace(" ", "").Length == 0)
-                        {
-                            SetRedBlockControl(wnd, "PathBlock");
-                            valid = false;
-                        }
-                        if (!File.Exists(fullPath))
-                        {
-                            MessageBox.Show("Фото по данному пути не существует!");
-                            SetRedBlockControl(wnd, "PathBlock");
-                            valid = false;
-                        }
-
-                        if (BikePrice == 0)
-                        {
-                            SetRedBlockControl(wnd, "PriceBlock");
-                            valid = false;
-                        }
-                        if (valid)
-                        {
-                            BikeImagePath = "/Resources/" + BikeImagePath;
-                            resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeFullDescription, BikeImagePath, BikePrice);
-                            UpdateAdminBikeView();
-                            SetNullValuesBikeView();
-                            MessageBox.Show("Успешно добавлено!");
-                            wnd.Close();
-                        }
-                        else
-                            return;
-                    }
-                    );
-                }
-            }
-
-            private RelayCommand deleteItem;
-            public RelayCommand DeleteItem
-            {
-                get
-                {
-                    return deleteItem ?? new RelayCommand(obj =>
-                    {
-                        bool resultStr = false;
-                        if (SelectedBike != null)
-                        {
-                            resultStr = DataWorker.DeleteBike(SelectedBike);
-                            UpdateAdminBikeView();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Необходимо выбрать велосипед!");
-                        }
-                        SetNullValuesBikeView();
-                    }
-                   );
-                }
-            }
-
-           
-        #endregion
-
-        private RelayCommand setIsBlocked;
-        public RelayCommand SetIsBlocked
+        private void AddNewBikeExecute(object obj)
         {
-            get
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string projectDir = Path.GetFullPath(Path.Combine(basePath, @"..\..\..\"));
+            string fullPath = projectDir + "\\Resources\\" + BikeImagePath;
+            Window wnd = obj as Window;
+
+            bool valid = true;
+
+            if (string.IsNullOrWhiteSpace(BikeName))
             {
-                return setIsBlocked ?? new RelayCommand(obj =>
+                SetRedBlockControl(wnd, "NameBlock");
+                valid = false;
+            }
+            if (string.IsNullOrWhiteSpace(BikeDescription))
+            {
+                SetRedBlockControl(wnd, "DescriptionBlock");
+                valid = false;
+            }
+            if (string.IsNullOrWhiteSpace(BikeFullDescription))
+            {
+                SetRedBlockControl(wnd, "FullDescriptionBlock");
+                valid = false;
+            }
+            if (string.IsNullOrWhiteSpace(BikeImagePath))
+            {
+                SetRedBlockControl(wnd, "PathBlock");
+                valid = false;
+            }
+            if (!File.Exists(fullPath))
+            {
+                MessageBox.Show("Фото по данному пути не существует!");
+                SetRedBlockControl(wnd, "PathBlock");
+                valid = false;
+            }
+            if (BikePrice == 0)
+            {
+                SetRedBlockControl(wnd, "PriceBlock");
+                valid = false;
+            }
+
+            if (valid)
+            {
+                BikeImagePath = "/Resources/" + BikeImagePath;
+                bool resultStr = DataWorker.CreateBike(BikeName, BikeDescription, BikeFullDescription, BikeImagePath, BikePrice);
+                UpdateAdminBikeView();
+                SetNullValuesBikeView();
+                MessageBox.Show("Успешно добавлено!");
+                wnd?.Close();
+            }
+        }
+
+        private void DeleteItemExecute(object obj)
+        {
+            if (SelectedBike != null)
+            {
+                var result = MessageBox.Show(
+                    "Вы действительно хотите удалить данный велосипед?",
+                    "Подтверждение удаления",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    bool resultStr = false;
-                    if (SelectedUser != null)
-                    {
-                        resultStr = DataWorker.ChangeIsBlockedUser(SelectedUser);
-                        UpdateAdminBikeView();
-                    }
+                    bool resultStr = DataWorker.DeleteBike(SelectedBike);
+                    UpdateAdminBikeView();
                 }
-               );
+            }
+            else
+            {
+                MessageBox.Show("Необходимо выбрать велосипед!");
+            }
+
+            SetNullValuesBikeView();
+        }
+
+        private void SetIsBlockedExecute(object obj)
+        {
+            if (SelectedUser != null)
+            {
+                bool resultStr = DataWorker.ChangeIsBlockedUser(SelectedUser);
+                UpdateAdminBikeView();
             }
         }
 

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:BikeRentalApplication.View"
         xmlns:viewmodel="clr-namespace:BikeRentalApplication.ViewModel"
         mc:Ignorable="d"
-        Title="Велопрокат" Height="700" Width="1000"
+        WindowState="Maximized"
+        Title="ВелоGo" Height="700" Width="1000" MinHeight="540" MinWidth="1000"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -105,19 +106,19 @@
                         <ImageBrush ImageSource="/Resources/Logo.png" Stretch="Uniform"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock Text="Велопрокат" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="ВелоGo" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20,0,0,0">
                 <TextBlock Text="📞" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="0,0,0,2"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 123 45 67" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 111 22 33" Foreground="White" FontSize="10"/>
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
-                <Button Content="Заказы" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAllBookingsWindow }" Margin="10,0"/>
                 <Button Content="Пользователи" Style="{StaticResource LinkButtonStyle}" Command="{Binding SwitchCommand}" Margin="10,0"/>
-                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
+                <Button Content="Заказы" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAllBookingsWindow }" Margin="10,0"/>
+                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Command ="{Binding OpenAuthWindow}" Margin="10,0"/>
             </StackPanel>
         </Grid>
 
@@ -151,7 +152,7 @@
                                 <Image Source="{Binding ImagePath}" Height="250" Stretch="UniformToFill" Margin="0,0,0,10"/>
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxHeight="60" Margin="0,5,0,5" TextAlignment="Center"/>
-                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0:C}'}" FontSize="14" Foreground="DarkGreen" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0} Br/час'}" FontSize="14" Foreground="DarkGreen" TextAlignment="Center"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -202,19 +203,19 @@
                         <ImageBrush ImageSource="/Resources/Logo.png" Stretch="Uniform"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock Text="Велопрокат" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="ВелоGo" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20,0,0,0">
                 <TextBlock Text="📞" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="0,0,0,2"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 123 45 67" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 111 22 33" Foreground="White" FontSize="10"/>
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
-                <Button Content="Заказы" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAllBookingsWindow }" Margin="10,0"/>
                 <Button Content="Велосипеды" Style="{StaticResource LinkButtonStyle}" Command="{Binding SwitchCommand}" Margin="10,0"/>
-                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
+                <Button Content="Заказы" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAllBookingsWindow }" Margin="10,0"/>
+                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Command ="{Binding OpenAuthWindow}" Margin="10,0"/>
             </StackPanel>
         </Grid>
 
@@ -310,6 +311,7 @@
                                 </Style.Triggers>
                             </Style>
                         </ListBox.ItemContainerStyle>
+                        
                     </ListBox>
                 </ScrollViewer>
             </StackPanel>

@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="Бронирование велосипеда" Width="400"
         WindowStartupLocation="CenterOwner"
-        SizeToContent="Height">
+        SizeToContent="Height"
+        ResizeMode="NoResize">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -38,9 +39,9 @@
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="Время начала:" FontWeight="SemiBold" Margin="0,0,0,5"/>
                     <ComboBox ItemsSource="{Binding AvailableHours}"
-                               SelectedItem="{Binding StartTime, UpdateSourceTrigger=PropertyChanged}"
-                               ItemStringFormat="{}{0:00}:00"
-                        MinWidth="80"/>
+                              SelectedItem="{Binding StartTime, UpdateSourceTrigger=PropertyChanged}"
+                              ItemStringFormat="{}{0:00}:00"
+                              MinWidth="80"/>
                 </StackPanel>
             </Grid>
 
@@ -60,22 +61,48 @@
                     <ComboBox ItemsSource="{Binding AvailableHours}"
                               SelectedItem="{Binding EndTime, UpdateSourceTrigger=PropertyChanged}"
                               ItemStringFormat="{}{0:00}:00" 
-                        MinWidth="80"/>
+                              MinWidth="80"/>
                 </StackPanel>
             </Grid>
 
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <TextBlock Text="Стоимость:" FontWeight="SemiBold"/>
+                <TextBlock>
+                   <Run Text="{Binding TotalCost, Mode=OneWay}"/>
+                    <Run Text=" Br"/>
+                </TextBlock>
 
-            <TextBlock Text="Комментарий (необязательно):" FontWeight="SemiBold" Margin="0,15,0,5"/>
-            <TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
-                     AcceptsReturn="True" Height="60" TextWrapping="Wrap"/>
+            </StackPanel>
+
+
+            <StackPanel Margin="0,15,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Доступные баллы:" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding AvailablePoints}" Foreground="#5C8F45" FontSize="14" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0">
+                    <CheckBox Content="Оплатить баллами"
+                              IsChecked="{Binding UsePoints, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="1Br = 10 бонусов" Foreground="Gray" Margin="10,2,0,0" FontSize="12"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
 
+        <StackPanel Grid.Row="2" Margin="0,10,0,0">
+            <TextBlock Text="{Binding ErrorMessage}" 
+               Foreground="Red" 
+               FontSize="12" 
+               TextWrapping="Wrap"
+               Margin="0,0,0,10"/>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Отмена" Width="100" Margin="0,0,10,0"
-                    Command="{Binding CancelCommand}" IsCancel="True"/>
-            <Button Content="Забронировать" Width="120" Background="#5C8F45" Foreground="White"
-                    Command="{Binding ConfirmBookingCommand}" IsDefault="True"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Отмена" Width="100" Margin="0,0,10,0"
+                Command="{Binding CancelCommand}" IsCancel="True"/>
+                <Button Content="Забронировать" Width="120" Background="#5C8F45" Foreground="White"
+                Command="{Binding ConfirmBookingCommand}" IsDefault="True"/>
+            </StackPanel>
         </StackPanel>
+
     </Grid>
 </Window>

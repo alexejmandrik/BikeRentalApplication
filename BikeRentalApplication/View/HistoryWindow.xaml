@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BikeRentalApplication.View"
         mc:Ignorable="d"
-       Title="Мои заказы - Велопрокат" Height="650" Width="950"
+        WindowState="Maximized"
+       Title="Мои заказы - Велопрокат" Height="700" Width="1000" MinHeight="540" MinWidth="1000"
         WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
@@ -53,17 +54,18 @@
                         <ImageBrush ImageSource="/Resources/Logo.png" Stretch="Uniform"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock Text="Велопрокат" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="ВелоGo" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20,0,0,0">
                 <TextBlock Text="📞" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="0,0,0,2"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 123 45 67" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 111 22 33" Foreground="White" FontSize="10"/>
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
-                <Button Content="Назад" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding GoToMainWindowCommand}"/>
+                <Button Content="Главная" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenMainWindow}"/>
+                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAuthWindow}" Margin="10,0"/>
             </StackPanel>
         </Grid>
 
@@ -111,7 +113,7 @@
                                         <TextBlock Text="{Binding FormattedPrice, Mode=OneWay}" FontSize="14" FontWeight="Bold" Margin="0,5,0,3" Visibility="{Binding PriceVisibility, Mode=OneWay}"/>
                                     </StackPanel>
 
-                                    <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                                         <Button Content="Добавить комментарий" Command="{Binding OpenAddCommentWindow}"/>
                                     </StackPanel>
                                 </Grid>

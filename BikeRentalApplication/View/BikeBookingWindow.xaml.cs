@@ -33,10 +33,5 @@ namespace BikeRentalApplication.View
             };
             DataContext = viewModel;
         }
-        public BikeBookingWindow()
-        {
-            InitializeComponent();
-        }
     }
-
 }

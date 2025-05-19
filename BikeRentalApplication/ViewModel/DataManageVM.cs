@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using BikeRentalApplication.Model;
 using BikeRentalApplication.View;
 
@@ -47,14 +47,15 @@ namespace BikeRentalApplication.ViewModel
             public decimal Price => Booking.Price;
             public string BikeName => RentedBike.Name;
             public string BikeImagePath => RentedBike.ImagePath;
-            public string FormattedPrice => Price > 0 ? $"{Price:C}" : "Бесплатно";
+            public string FormattedPrice => Price > 0 ? string.Format(new CultureInfo("ru-BY"), "{0:C}", Price) : "Бесплатно";
             public Visibility PriceVisibility => Price > 0 ? Visibility.Visible : Visibility.Collapsed;
 
             public Visibility CancelButtonVisibility
             {
                 get
                 {
-                    return (BookingStatus == "Активно" || BookingStatus == "Подтверждено") && EndDateTime > DateTime.Now
+                    return (BookingStatus == "Активно" || BookingStatus == "Подтверждено" || BookingStatus == "Забронировано")
+                           && EndDateTime > DateTime.Now
                         ? Visibility.Visible
                         : Visibility.Collapsed;
                 }
@@ -67,35 +68,18 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
-        private void OpenBikeWindowMethod(Bike bikeToOpen)
-        {
-            if (bikeToOpen == null)
-            {
-                MessageBox.Show("Велосипед для открытия не выбран или не передан.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
 
-            BikeWindow bikeWindow = new BikeWindow(bikeToOpen);
-            SetCenterPositionAndOpen(bikeWindow);
-        }
-
-        private RelayCommand openBikeWindow;
-        public RelayCommand OpenBikeWindow
+        private bool _isHistoryEmpty;
+        public bool IsHistoryEmpty
         {
-            get
+            get => _isHistoryEmpty;
+            set
             {
-                return openBikeWindow ?? (openBikeWindow = new RelayCommand(obj =>
+                if (_isHistoryEmpty != value)
                 {
-                    Bike selectedBikeFromDoubleClick = obj as Bike;
-                    if (selectedBikeFromDoubleClick != null)
-                    {
-                        OpenBikeWindowMethod(selectedBikeFromDoubleClick);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Не удалось определить велосипед для открытия.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }));
+                    _isHistoryEmpty = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -112,9 +96,9 @@ namespace BikeRentalApplication.ViewModel
                 {
                     isBikeSection = value;
                     OnPropertyChanged();
-                    if (isBikeSection)
+                    if (isBikeSection) 
                     {
-                        IsBookingSection = false;
+                        IsBookingSection = false; 
                         RefreshAndSortBikes();
                     }
                 }
@@ -129,9 +113,9 @@ namespace BikeRentalApplication.ViewModel
                 {
                     isBookingSection = value;
                     OnPropertyChanged();
-                    if (isBookingSection)
+                    if (isBookingSection) 
                     {
-                        IsBikeSection = false;
+                        IsBikeSection = false; 
                         _ = LoadActiveBookingsAsync();
                     }
                     OnPropertyChanged(nameof(IsBookingContentVisible));
@@ -144,7 +128,7 @@ namespace BikeRentalApplication.ViewModel
         {
             if (IsBikeSection)
             {
-                IsBookingSection = true;
+                IsBookingSection = true; 
             }
             else
             {
@@ -157,7 +141,7 @@ namespace BikeRentalApplication.ViewModel
 
         private List<Bike> _masterBikeList;
         private List<Bike> _currentBikeListView;
-        
+
         public List<Bike> AllBikes
         {
             get { return _currentBikeListView; }
@@ -168,29 +152,11 @@ namespace BikeRentalApplication.ViewModel
             }
         }
 
-        private BikeSortType _currentSortType = BikeSortType.ByNameAscending; 
+        private BikeSortType _currentSortType = BikeSortType.ByNameAscending;
 
         public ICommand SortByNameCommand { get; }
         public ICommand SortByPriceAscCommand { get; }
         public ICommand SortByPriceDescCommand { get; }
-
-        private void OpenHistoryWindowMethod()
-        {
-            HistoryWindow historyWindow = new HistoryWindow();
-            SetCenterPositionAndOpen(historyWindow);
-        }
-        private RelayCommand openHistoryWindow;
-
-        public RelayCommand OpenHistoryWindow
-        {
-            get
-            {
-                return openHistoryWindow ?? new RelayCommand(obj =>
-                {
-                    OpenHistoryWindowMethod();
-                });
-            }
-        }
 
         private void SortBikes(BikeSortType sortType)
         {
@@ -214,67 +180,62 @@ namespace BikeRentalApplication.ViewModel
                     sortedEnumerable = _masterBikeList.OrderByDescending(b => b.Price);
                     break;
                 default:
-                    sortedEnumerable = _masterBikeList; 
+                    sortedEnumerable = _masterBikeList;
                     break;
             }
-            this.AllBikes = sortedEnumerable.ToList(); 
+            this.AllBikes = sortedEnumerable.ToList();
         }
 
         private void RefreshAndSortBikes()
         {
             _masterBikeList = DataWorker.GetAllBikes() ?? new List<Bike>();
-            SortBikes(_currentSortType); 
+            SortBikes(_currentSortType);
         }
 
-        private string bikeName;
-        public string BikeName { get => bikeName; set { bikeName = value; OnPropertyChanged(); } }
-
-        private string bikeDescription;
-        public string BikeDescription { get => bikeDescription; set { bikeDescription = value; OnPropertyChanged(); } }
-
-        private string bikeImagePath;
-        public string BikeImagePath { get => bikeImagePath; set { bikeImagePath = value; OnPropertyChanged(); } }
-
-        private decimal bikePrice;
-        public decimal BikePrice { get => bikePrice; set { bikePrice = value; OnPropertyChanged(); } }
-
-        public static Bike SelectedBike { get; set; }
+        public static Bike SelectedBike { get; set; } 
+                                                     
         #endregion
 
         #region BOOKING LIST PROPERTIES AND METHODS
-        private ObservableCollection<DisplayableBookingItem> displayableBookings;
+        private ObservableCollection<DisplayableBookingItem> _displayableBookings;
         public ObservableCollection<DisplayableBookingItem> DisplayableBookings
         {
-            get => displayableBookings;
+            get => _displayableBookings;
             set
             {
-                displayableBookings = value;
+                _displayableBookings = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool isLoadingBookings;
+        private bool _isLoadingBookings;
         public bool IsLoadingBookings
         {
-            get => isLoadingBookings;
+            get => _isLoadingBookings;
             set
             {
-                isLoadingBookings = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(IsBookingContentVisible));
+                if (_isLoadingBookings != value)
+                {
+                    _isLoadingBookings = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsBookingContentVisible));
+                }
             }
         }
 
         public bool IsBookingContentVisible => IsBookingSection && !IsLoadingBookings;
 
-        private string loadingBookingsMessage;
+        private string _loadingBookingsMessage;
         public string LoadingBookingsMessage
         {
-            get => loadingBookingsMessage;
+            get => _loadingBookingsMessage;
             set
             {
-                loadingBookingsMessage = value;
-                OnPropertyChanged();
+                if (_loadingBookingsMessage != value)
+                {
+                    _loadingBookingsMessage = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -292,12 +253,14 @@ namespace BikeRentalApplication.ViewModel
             else
                 DisplayableBookings.Clear();
 
+            bool errorOccurred = false;
+
             try
             {
                 if (SessionManager.CurrentUser == null)
                 {
                     LoadingBookingsMessage = "Пользователь не авторизован. Пожалуйста, войдите в систему.";
-                    IsLoadingBookings = false;
+                    errorOccurred = true; 
                     return;
                 }
 
@@ -310,30 +273,36 @@ namespace BikeRentalApplication.ViewModel
                         await Task.Run(() => DataWorker.UpdateBookingStatusIfNeeded(booking));
                     }
 
-                    var userBookingInfo = await Task.Run(() => DataWorker.GetUserBookings(SessionManager.CurrentUser));
+                    var updatedUserBookings = await Task.Run(() => DataWorker.GetUserBookings(SessionManager.CurrentUser));
 
-                    foreach (var booking in userBookingInfo)
+                    foreach (var booking in updatedUserBookings)
                     {
-                        if (booking.BookingStatus == "Активно" || booking.BookingStatus == "Забронировано")
+                        if (booking.BookingStatus == "Активно" || booking.BookingStatus == "Забронировано" || booking.BookingStatus == "Подтверждено")
                         {
                             var bike = await Task.Run(() => DataWorker.GetBikeById(booking.BikeId));
                             DisplayableBookings.Add(new DisplayableBookingItem(booking, bike));
                         }
                     }
                 }
-
-                LoadingBookingsMessage = DisplayableBookings.Any()
-                    ? string.Empty
-                    : "У вас пока нет активных заказов.";
             }
             catch (Exception ex)
             {
+                errorOccurred = true;
                 LoadingBookingsMessage = "Ошибка при загрузке заказов.";
                 MessageBox.Show($"Произошла ошибка при загрузке заказов: {ex.Message}\n{ex.StackTrace}", "Ошибка загрузки", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
-                IsLoadingBookings = false;
+                IsLoadingBookings = false; 
+
+                if (SessionManager.CurrentUser == null || errorOccurred)
+                {
+                    IsHistoryEmpty = true;
+                }
+                else
+                {
+                    IsHistoryEmpty = !DisplayableBookings.Any();
+                }
             }
         }
 
@@ -348,13 +317,14 @@ namespace BikeRentalApplication.ViewModel
 
             if (result == MessageBoxResult.Yes)
             {
-                IsLoadingBookings = true;
+                IsLoadingBookings = true; 
                 LoadingBookingsMessage = "Отмена бронирования...";
                 try
                 {
                     BikeBooking bookingToDeleteStub = new BikeBooking { Id = itemToCancel.Id };
-                    bool success = await Task.Run(() => DataWorker.DeleteBikeBooking(bookingToDeleteStub));
+                    bool bonusUpdated = DataWorker.SetBunusCounterDown(bookingToDeleteStub, SessionManager.CurrentUser);
 
+                    bool success = await Task.Run(() => DataWorker.DeleteBikeBooking(bookingToDeleteStub));
                     if (success)
                     {
                         MessageBox.Show("Бронирование успешно отменено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -363,16 +333,13 @@ namespace BikeRentalApplication.ViewModel
                     else
                     {
                         MessageBox.Show("Не удалось отменить бронирование (возможно, оно уже было удалено или не найдено).", "Ошибка отмены", MessageBoxButton.OK, MessageBoxImage.Error);
+                        await LoadActiveBookingsAsync();
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Ошибка при отмене бронирования: {ex.Message}", "Ошибка отмены", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                finally
-                {
-                    IsLoadingBookings = false;
-                    LoadingBookingsMessage = string.Empty;
+                    await LoadActiveBookingsAsync(); 
                 }
             }
         }
@@ -383,8 +350,9 @@ namespace BikeRentalApplication.ViewModel
             MessageBox.Show($"Просмотр деталей для бронирования велосипеда: {itemDetails.BikeName}\n" +
                               $"ID брони: {itemDetails.Id}\n" +
                               $"Статус: {itemDetails.BookingStatus}\n" +
-                              $"Начало: {itemDetails.StartDateTime:g}\n" +
-                              $"Окончание: {itemDetails.EndDateTime:g}",
+                              $"Начало: {itemDetails.StartDateTime:dd.MM.yyyy HH:mm}\n" +
+                              $"Окончание: {itemDetails.EndDateTime:dd.MM.yyyy HH:mm}\n" +
+                              $"Цена: {itemDetails.FormattedPrice}",
                               "Детали бронирования", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -398,20 +366,77 @@ namespace BikeRentalApplication.ViewModel
         }
         #endregion
 
-
-        #region WINDOW MANAGEMENT & MISC ACTIONS
         private void OpenAuthWindowMethod()
         {
             AuthWindow authWindow = new AuthWindow();
-            SetCenterPositionAndOpen(authWindow);
-            if (IsBookingSection && SessionManager.CurrentUser != null)
-            {
-                _ = LoadActiveBookingsAsync();
-            }
-            RefreshAndSortBikes(); 
+            Application.Current.MainWindow = authWindow;
+
+            Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is MainWindow)?
+            .Close();
+
+            Application.Current.MainWindow.Show();
         }
 
+        private void OpenHistoryWindowMethod()
+        {
+            HistoryWindow historyWindow = new HistoryWindow();
+            Application.Current.MainWindow = historyWindow;
+
+            Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is MainWindow)?
+            .Close();
+
+            Application.Current.MainWindow.Show();
+        }
+
+        private void OpenBikeWindowMethod(Bike bikeToOpen)
+        {
+            if (bikeToOpen == null)
+            {
+                MessageBox.Show("Велосипед для открытия не выбран или не передан.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            BikeWindow bikeWindow = new BikeWindow(bikeToOpen);
+            Application.Current.MainWindow = bikeWindow;
+
+            Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(w => w is MainWindow)?
+                .Close();
+
+            Application.Current.MainWindow.Show();
+        }
+
+
+        private RelayCommand openAuthWindow;
+        private RelayCommand openHistoryWindow;
         private RelayCommand openBikeBookingWindow;
+        private RelayCommand openBikeWindow;
+
+        public RelayCommand OpenAuthWindow
+        {
+            get
+            {
+                return openAuthWindow ?? new RelayCommand(obj =>
+                {
+                    OpenAuthWindowMethod();
+                });
+            }
+        }
+        public RelayCommand OpenHistoryWindow
+        {
+            get
+            {
+                return openHistoryWindow ?? (openHistoryWindow = new RelayCommand(obj =>
+                {
+                    OpenHistoryWindowMethod();
+                }));
+            }
+        }
 
         public RelayCommand OpenBikeBookingWindow
         {
@@ -424,15 +449,27 @@ namespace BikeRentalApplication.ViewModel
                 }));
             }
         }
-        private void SwitchToMyBookingsViewMethod()
+
+        public RelayCommand OpenBikeWindow
         {
-            if (!IsBookingSection)
+            get
             {
-                IsBookingSection = true;
-            }
-            else
-            {
-                _ = LoadActiveBookingsAsync();
+                return openBikeWindow ?? (openBikeWindow = new RelayCommand(obj =>
+                {
+                    Bike selectedBikeFromDoubleClick = obj as Bike;
+                    if (selectedBikeFromDoubleClick != null)
+                    {
+                        OpenBikeWindowMethod(selectedBikeFromDoubleClick);
+                    }
+                    else if (SelectedBike != null)
+                    {
+                        OpenBikeWindowMethod(SelectedBike);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось определить велосипед для открытия.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }));
             }
         }
 
@@ -446,25 +483,13 @@ namespace BikeRentalApplication.ViewModel
 
             if (SessionManager.CurrentUser == null)
             {
-                MessageBox.Show("Для бронирования велосипеда необходимо авторизоваться.", "Авторизация", MessageBoxButton.OK, MessageBoxImage.Information);
-                OpenAuthWindowMethod();
-                if (SessionManager.CurrentUser == null) return;
+                MessageBox.Show("Для бронирования велосипеда необходимо авторизоваться.");
+                return;
             }
 
             int userId = SessionManager.CurrentUser.Id;
-            BikeBookingVM bookingVM = new BikeBookingVM(bikeToBook, userId);
-            BikeBookingWindow bikeBookingWindow = new BikeBookingWindow();
-            bikeBookingWindow.DataContext = bookingVM;
 
-            if (bookingVM.GetType().GetEvent("RequestClose") is System.Reflection.EventInfo requestCloseEvent)
-            {
-                EventHandler<bool?> requestCloseHandler = null;
-                requestCloseHandler = (s, dialogResult) => {
-                    requestCloseEvent.RemoveEventHandler(bookingVM, requestCloseHandler);
-                    bikeBookingWindow.DialogResult = dialogResult;
-                };
-                requestCloseEvent.AddEventHandler(bookingVM, requestCloseHandler);
-            }
+            var bikeBookingWindow = new BikeBookingWindow(bikeToBook, userId);
 
             SetCenterPositionAndOpen(bikeBookingWindow);
 
@@ -474,69 +499,58 @@ namespace BikeRentalApplication.ViewModel
                 {
                     _ = LoadActiveBookingsAsync();
                 }
-                RefreshAndSortBikes(); 
+                RefreshAndSortBikes();
             }
         }
         public void SetCenterPositionAndOpen(Window window)
         {
-            Window ownerWindow = Application.Current.MainWindow;
-            if (ownerWindow != null && ownerWindow == window)
+            Window ownerWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive && w != window);
+            if (ownerWindow == null && Application.Current.MainWindow != window)
             {
-                ownerWindow = null;
+                ownerWindow = Application.Current.MainWindow;
             }
+
             window.Owner = ownerWindow;
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.WindowStartupLocation = ownerWindow != null ? WindowStartupLocation.CenterOwner : WindowStartupLocation.CenterScreen;
             window.ShowDialog();
         }
-        #endregion
-
-        #region COMMANDS
-        private RelayCommand _openAuthWindow;
-        public RelayCommand OpenAuthWindow => _openAuthWindow ??= new RelayCommand(obj => OpenAuthWindowMethod());
-
-        private RelayCommand _openMyBookingsViewCommand;
-        public RelayCommand OpenMyBookingsViewCommand => _openMyBookingsViewCommand ??= new RelayCommand(obj => SwitchToMyBookingsViewMethod());
-        #endregion
 
         public DataManageVM()
         {
-            _currentBikeListView = new List<Bike>();
             _masterBikeList = new List<Bike>();
+            _currentBikeListView = new List<Bike>();
+            _displayableBookings = new ObservableCollection<DisplayableBookingItem>();
 
             SwitchCommand = new RelayCommand(SwitchMode);
 
             SortByNameCommand = new RelayCommand(_ => SortBikes(BikeSortType.ByNameAscending));
             SortByPriceAscCommand = new RelayCommand(_ => SortBikes(BikeSortType.ByPriceAscending));
             SortByPriceDescCommand = new RelayCommand(_ => SortBikes(BikeSortType.ByPriceDescending));
-            
-         
-            RefreshAndSortBikes();
 
-            DisplayableBookings = new ObservableCollection<DisplayableBookingItem>();
+            RefreshAndSortBikes();
 
             CancelBookingCommand = new RelayCommand(async (p) => await CancelBookingActionAsync(p as DisplayableBookingItem), CanExecuteBookingRelatedCommand);
             ViewBookingDetailsCommand = new RelayCommand((p) => ViewBookingDetailsAction(p as DisplayableBookingItem), CanExecuteBookingRelatedCommand);
             RefreshBookingsCommand = new RelayCommand(async (_) => await LoadActiveBookingsAsync(), CanExecuteRefreshBookingCommand);
 
-            if (IsBookingSection) 
-            {
-                _ = LoadActiveBookingsAsync();
-            }
+            IsHistoryEmpty = true; 
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    public interface ICloseRequestable
+    {
+        event EventHandler<bool?> RequestClose;
     }
 }

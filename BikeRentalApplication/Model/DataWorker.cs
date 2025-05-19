@@ -77,29 +77,6 @@ namespace BikeRentalApplication.Model
             return result;
         }
 
-        /*public static bool EditUser(User oldUser, string NewUserName, string NewName, string NewSurname, string NewPatronymic, string NewPhoneNumber, string NewPassword, string NewUserStatus)
-        {
-            bool result = false;
-            using (ApplicationContext db = new ApplicationContext())
-            {
-
-                User User = db.Users.FirstOrDefault(u => u.Id == oldUser.Id);
-                if (User != null)
-                {
-                    User.UserName = NewUserName;
-                    User.Name = NewName;
-                    User.Surname = NewSurname;
-                    User.Patronymic = NewPatronymic;
-                    User.PhoneNumber = NewPhoneNumber;
-                    User.Password = NewPassword;
-                    User.UserStatus = NewUserStatus;
-                    db.SaveChanges();
-                    result = true;
-                }
-            }
-            return result;
-        }*/
-
         public static bool ChangeIsBlockedUser(User oldUser)
         {
             bool result = false;
@@ -121,7 +98,7 @@ namespace BikeRentalApplication.Model
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                var result = db.Users.ToList();
+                var result = db.Users.Where(u => u.UserStatus != "admin").ToList();
                 return result;
             }
         }
@@ -134,18 +111,6 @@ namespace BikeRentalApplication.Model
             }
         }
 
-        // В авторизации найден или нет
-        /*        public static bool SearchUserByUserName(string username)
-                {
-                    using (ApplicationContext db = new ApplicationContext())
-                    {
-                        bool result = false;
-                        User user = db.Users.FirstOrDefault(u => u.UserName == username);
-                        if (user != null)
-                            result = true;
-                        return result;
-                    }
-                }*/
         public static User? GetUserByUsername(string userName)
         {
             using (ApplicationContext db = new ApplicationContext())
@@ -153,7 +118,6 @@ namespace BikeRentalApplication.Model
                 return db.Users.FirstOrDefault(u => u.UserName == userName);
             }
         }
-
 
         public static bool CheckBlocking(string username)
         {
@@ -380,6 +344,98 @@ namespace BikeRentalApplication.Model
                 }
             }
         }
+
+        public static bool SetBunusCounterUp(User currentUser, decimal price)
+        {
+            if (currentUser == null)
+                return false;
+
+            try
+            {
+                using (ApplicationContext db = new ApplicationContext())
+                {
+                    var userInDb = db.Users.FirstOrDefault(u => u.Id == currentUser.Id);
+                    if (userInDb == null)
+                        return false;
+               
+                    userInDb.BonusCounter += (int)price;
+                    db.SaveChanges();
+                    currentUser.BonusCounter = userInDb.BonusCounter;
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool SetBunusCounterDown(BikeBooking booking, User currentUser)
+        {
+            if (currentUser == null)
+                return false;
+
+            try
+            {
+                using (ApplicationContext db = new ApplicationContext())
+                {
+                    var userInDb = db.Users.FirstOrDefault(u => u.Id == currentUser.Id);
+                    var bookingInDb = db.BikeBookings.FirstOrDefault(b => b.Id == booking.Id);
+                    if (userInDb == null || bookingInDb == null)
+                        return false;
+                    if(userInDb.BonusCounter > (int)bookingInDb.Price)
+                    {
+                        userInDb.BonusCounter -= (int)bookingInDb.Price;
+                        db.SaveChanges();
+                        currentUser.BonusCounter = userInDb.BonusCounter;
+                        return true;
+                    }
+                    else
+                    {
+                        userInDb.BonusCounter = 0;
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public static bool SetBonusCounterDownBooking(int price, User user)
+        {
+            if (price == 0 || user == null)
+            {
+                MessageBox.Show("3");
+                return false;
+            }
+
+            try
+            {
+                using (ApplicationContext db = new ApplicationContext())
+                {
+                    var userInDb = db.Users.FirstOrDefault(u => u.Id == user.Id);
+                    if (userInDb == null)
+                    {
+                        MessageBox.Show("2");
+                        return false;
+                    }
+
+                    userInDb.BonusCounter = Math.Max(0, userInDb.BonusCounter - price);
+                    db.SaveChanges();
+
+                    user.BonusCounter = userInDb.BonusCounter;
+                    return true;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("1");
+                return false;
+            }
+        }
+
         #endregion
 
         #region COMMENTS DB
@@ -411,12 +467,29 @@ namespace BikeRentalApplication.Model
             }
         }
 
+        public static bool DeleteComment(Comments comment)
+        {
+            bool result = false;
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                bool checkIsExist = db.Comments.Any(c => c.Id == comment.Id);
+                if (checkIsExist)
+                {
+                    db.Comments.Remove(comment);
+                    db.SaveChanges();
+                    result = true;
+                }
+                return result;
+            }
+        }
+
+
         public static List<Comments> GetCommentsByBikeId(int bikeId)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
                 return db.Comments
-                  .Where(c => c.Bike.Id == bikeId)
+                  .Where(c => c.Bike.Id == bikeId && c.Visibility) 
                  .Include(c => c.User) 
                  .ToList();
             }
@@ -430,6 +503,23 @@ namespace BikeRentalApplication.Model
                  .Include(c => c.Bike)
                  .ToList();
             }
+        }
+
+        public static bool ChangeIsVisibilityComment(Comments oldComment)
+        {
+            bool result = false;
+            using (ApplicationContext db = new ApplicationContext())
+            {
+
+                Comments comment = db.Comments.FirstOrDefault(c => c.Id == oldComment.Id);
+                if (comment != null)
+                {
+                    comment.Visibility = !comment.Visibility;
+                    db.SaveChanges();
+                    result = true;
+                }
+            }
+            return result;
         }
         #endregion
     }

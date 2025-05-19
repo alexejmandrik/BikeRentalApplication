@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BikeRentalApplication.View"
         xmlns:vm="clr-namespace:BikeRentalApplication.ViewModel"
         mc:Ignorable="d"
-        Title="Бронирование велосипеда" Width="400"
+        Title="Комментарии" Width="400"
         WindowStartupLocation="CenterOwner"
         SizeToContent="Height">
     <Grid Margin="20">
@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Бронирование велосипеда"
+        <TextBlock Grid.Row="0" Text="Комментарии"
                    FontSize="20" FontWeight="Bold" Foreground="#FF1F1F1F"
                    HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
@@ -47,9 +47,15 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
             <Button Content="Отмена" Width="100" Margin="0,0,10,0"
-                    Command="{Binding CancelCommand}" IsCancel="True"/>
+            Command="{Binding CancelCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+            IsCancel="True"/>
+
             <Button Content="Отправить" Width="120" Background="#5C8F45" Foreground="White"
-                    Command="{Binding ConfirmBookingCommand}" IsDefault="True"/>
+            Command="{Binding ConfirmBookingCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+            IsDefault="True"/>
         </StackPanel>
+
     </Grid>
 </Window>

@@ -1,13 +1,13 @@
 ﻿using BikeRentalApplication.Model;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.IO;
-using BikeRentalApplication.View;
+using BikeRentalApplication.View; 
 
 namespace BikeRentalApplication.ViewModel
 {
@@ -42,7 +42,7 @@ namespace BikeRentalApplication.ViewModel
             BikeName = selectedBike.Name;
             BikeDescription = selectedBike.Description;
             BikeFullDescription = selectedBike.FullDescription;
-            BikeImagePath = selectedBike.ImagePath.Replace("/Resources/", "");
+            BikeImagePath = selectedBike.ImagePath?.Replace("/Resources/", "").TrimStart('/', '\\') ?? string.Empty;
             BikePrice = selectedBike.Price;
 
             SaveCommand = new RelayCommand(SaveChanges);
@@ -91,47 +91,62 @@ namespace BikeRentalApplication.ViewModel
         private void SaveChanges(object obj)
         {
             Window wnd = obj as Window;
+            if (wnd == null) return;
+
+            ResetAllErrorHighlights(wnd);
+            List<string> errorMessages = new List<string>();
 
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string projectDir = Path.GetFullPath(Path.Combine(basePath, @"..\..\..\")); 
-            string fullImagePath = projectDir + "\\Resources\\" + BikeImagePath;
+            string projectDir = Path.GetFullPath(Path.Combine(basePath, @"..\..\..\"));
+            string relativeImagePath = BikeImagePath?.TrimStart('/', '\\') ?? string.Empty;
+            string fullImagePath = Path.Combine(projectDir, "Resources", relativeImagePath);
 
-            bool valid = true;
 
             if (string.IsNullOrWhiteSpace(BikeName))
             {
-                SetRedBlockControl(wnd, "NameBlock");
-                valid = false;
+                SetErrorHighlight(wnd, "NameBlock");
+                errorMessages.Add("Название велосипеда не может быть пустым.");
             }
             if (string.IsNullOrWhiteSpace(BikeDescription))
             {
-                SetRedBlockControl(wnd, "DescriptionBlock");
-                valid = false;
+                SetErrorHighlight(wnd, "DescriptionBlock");
+                errorMessages.Add("Описание велосипеда не может быть пустым.");
             }
             if (string.IsNullOrWhiteSpace(BikeFullDescription))
             {
-                SetRedBlockControl(wnd, "FullDescriptionBlock");
-                valid = false;
+                SetErrorHighlight(wnd, "FullDescriptionBlock");
+                errorMessages.Add("Полное описание велосипеда не может быть пустым.");
             }
-            if (string.IsNullOrWhiteSpace(BikeImagePath) || !File.Exists(fullImagePath))
+            if (string.IsNullOrWhiteSpace(BikeImagePath))
             {
-                SetRedBlockControl(wnd, "PathBlock");
-                valid = false;
+                SetErrorHighlight(wnd, "PathBlock");
+                errorMessages.Add("Путь к изображению не может быть пустым.");
+            }
+            else if (!File.Exists(fullImagePath))
+            {
+                SetErrorHighlight(wnd, "PathBlock");
+                errorMessages.Add($"Файл изображения не найден. Проверьте путь: {fullImagePath}");
             }
             if (BikePrice <= 0)
             {
-                SetRedBlockControl(wnd, "PriceBlock");
-                valid = false;
+                SetErrorHighlight(wnd, "PriceBlock");
+                errorMessages.Add("Цена должна быть больше нуля.");
             }
 
-            if (!valid) return;
+            if (errorMessages.Any())
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, errorMessages), "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string dbImagePath = "/Resources/" + relativeImagePath;
 
             bool result = DataWorker.EditBike(
                 _originalBike,
                 BikeName,
                 BikeDescription,
                 BikeFullDescription,
-                "/Resources/" + BikeImagePath,
+                dbImagePath,
                 BikePrice
             );
 
@@ -143,7 +158,7 @@ namespace BikeRentalApplication.ViewModel
             }
             else
             {
-                MessageBox.Show("Ошибка при сохранении!");
+                MessageBox.Show("Ошибка при сохранении изменений в базу данных!", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -153,29 +168,45 @@ namespace BikeRentalApplication.ViewModel
         {
             AllBikes = DataWorker.GetAllBikes();
             AllUsers = DataWorker.GetAllUsers();
-            AdminBikeWindow.AllBikesView.ItemsSource = null;
-            AdminBikeWindow.AllBikesView.Items.Clear();
-            AdminBikeWindow.AllBikesView.ItemsSource = AllBikes;
-            AdminBikeWindow.AllBikesView.Items.Refresh();
+            if (AdminBikeWindow.AllBikesView != null)
+            {
+                AdminBikeWindow.AllBikesView.ItemsSource = null;
+                AdminBikeWindow.AllBikesView.ItemsSource = this.AllBikes; 
+            }
         }
 
-        public void SetRedBlockControl(Window wnd, string blockName)
+        private void SetControlBorder(Window wnd, string controlName, Brush borderBrush)
         {
-            Control block = wnd.FindName(blockName) as Control;
-            block.BorderBrush = Brushes.Red;
+            if (wnd.FindName(controlName) is Control control)
+            {
+                control.BorderBrush = borderBrush;
+            }
+        }
+
+        private void SetErrorHighlight(Window wnd, string controlName)
+        {
+            SetControlBorder(wnd, controlName, Brushes.Red);
+        }
+
+        private void ResetAllErrorHighlights(Window wnd)
+        {
+            Brush defaultBrush = SystemColors.ControlDarkBrush;
+
+            SetControlBorder(wnd, "NameBlock", defaultBrush);
+            SetControlBorder(wnd, "DescriptionBlock", defaultBrush);
+            SetControlBorder(wnd, "FullDescriptionBlock", defaultBrush);
+            SetControlBorder(wnd, "PathBlock", defaultBrush);
+            SetControlBorder(wnd, "PriceBlock", defaultBrush);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

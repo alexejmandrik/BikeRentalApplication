@@ -5,12 +5,12 @@
         xmlns:helper="clr-namespace:BikeRentalApplication.Helpers"
         xmlns:viewModel="clr-namespace:BikeRentalApplication.ViewModel"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BikeRentalApplication.View"
         mc:Ignorable="d"
         Name="AuthWind"
-        Title="{DynamicResource AuthWindowTitle}" Height="620" Width="450"
-    WindowStartupLocation="CenterScreen"
+        Title="Авторизация / Регистрация" Height="580" Width="450"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
+
     <Window.DataContext>
         <viewModel:AuthVM/>
     </Window.DataContext>
@@ -29,65 +29,68 @@
 
         <TextBlock Grid.Row="0" Text="{Binding TitleText}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
-            <Button Content="RU" Command="{Binding ChangeLanguageCommand}" CommandParameter="ru-RU" Margin="0,0,5,0" Padding="5,2"/>
-            <Button Content="EN" Command="{Binding ChangeLanguageCommand}" CommandParameter="en-US" Padding="5,2"/>
-        </StackPanel>
+       
 
-        <Grid Grid.Row="2">
-            <StackPanel Visibility="{Binding IsLoginVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Label Content="{DynamicResource LoginLabel}" />
-                <TextBox Text="{Binding LoginUsername, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+            <Grid Grid.Row="2">
+                <StackPanel Visibility="{Binding IsLoginVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Label Content="Логин" />
+                    <TextBox Text="{Binding LoginUsername, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
-                <Label Content="{DynamicResource PasswordLabel}" />
-                <PasswordBox helper:PasswordBoxHelper.BindPassword="True"
+                    <Label Content="Пароль" />
+                    <PasswordBox helper:PasswordBoxHelper.BindPassword="True"
                              helper:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,0,10"/>
 
-                <Button Content="{DynamicResource LoginButton}" Command="{Binding LoginCommand}" Padding="10,5" HorizontalAlignment="Stretch"/>
+                <Button Content="Войти" Command="{Binding LoginCommand}" Padding="10,5" HorizontalAlignment="Stretch"/>
+                <Image Grid.Row="1" 
+                    Source="/Resources/MainBike.jpg" 
+                    MaxHeight="170" 
+                    Stretch="Uniform"
+                    Margin="0,75,0,15"
+                    HorizontalAlignment="Center"/>
             </StackPanel>
 
-            <StackPanel Visibility="{Binding IsRegisterVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Label Content="{DynamicResource LoginRequiredLabel}"/>
-                <TextBox Text="{Binding RegisterUsername, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                <StackPanel Visibility="{Binding IsRegisterVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Label Content="Логин *"/>
+                    <TextBox Text="{Binding RegisterUsername, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
-                <Label Content="{DynamicResource SurnameRequiredLabel}"/>
-                <TextBox Text="{Binding RegisterSurname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                    <Label Content="Фамилия *"/>
+                    <TextBox Text="{Binding RegisterSurname, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
-                <Label Content="{DynamicResource NameRequiredLabel}"/>
-                <TextBox Text="{Binding RegisterName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                    <Label Content="Имя *"/>
+                    <TextBox Text="{Binding RegisterName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
-                <Label Content="{DynamicResource PatronymicLabel}"/>
-                <TextBox Text="{Binding RegisterPatronymic, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                    <Label Content="Отчество"/>
+                    <TextBox Text="{Binding RegisterPatronymic, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
-                <Label Content="{DynamicResource PhoneNumberRequiredLabel}"/>
-                <TextBox Text="{Binding RegisterPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                    <Label Content="Номер телефона *"/>
+                    <TextBox Text="{Binding RegisterPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
-                <Label Content="{DynamicResource PasswordRequiredLabel}"/>
-                <PasswordBox x:Name="RegisterPasswordBox"
+                    <Label Content="Пароль *"/>
+                    <PasswordBox x:Name="RegisterPasswordBox"
                              helper:PasswordBoxHelper.BindPassword="True"
                              helper:PasswordBoxHelper.BoundPassword="{Binding RegisterPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,0,10"/>
 
-                <Label Content="{DynamicResource ConfirmPasswordRequiredLabel}"/>
-                <PasswordBox x:Name="RegisterConfirmPasswordBox"
+                    <Label Content="Подтверждение пароля *"/>
+                    <PasswordBox x:Name="RegisterConfirmPasswordBox"
                              helper:PasswordBoxHelper.BindPassword="True"
                              helper:PasswordBoxHelper.BoundPassword="{Binding RegisterConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,0,15"/>
 
-                <Button Content="{DynamicResource RegisterButton}" Command="{Binding RegisterCommand}"
+                    <Button Content="Зарегистрироваться" Command="{Binding RegisterCommand}"
                         Padding="10,5" HorizontalAlignment="Stretch"/>
-            </StackPanel>
-        </Grid>
+                </StackPanel>
+            </Grid>
 
-        <StackPanel Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,15,0,0">
-            <TextBlock HorizontalAlignment="Center">
+            <StackPanel Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,15,0,0">
+                <TextBlock HorizontalAlignment="Center">
                 <Hyperlink Command="{Binding SwitchCommand}">
                     <Run Text="{Binding SwitchLinkText}"/>
                 </Hyperlink>
-            </TextBlock>
-            <TextBlock Foreground="Red" HorizontalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap" MinHeight="20"
+                </TextBlock>
+                <TextBlock Foreground="Red" HorizontalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap" MinHeight="20"
                        Text="{Binding StatusMessage}" />
-        </StackPanel>
+            </StackPanel>
     </Grid>
 </Window>

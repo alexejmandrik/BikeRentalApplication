@@ -9,10 +9,8 @@ namespace BikeRentalApplication.ViewModel
 {
     public class AddCommentVM : INotifyPropertyChanged
     {
-        // Событие для обновления привязок
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Метод уведомления об изменении свойств
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -8,7 +8,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:behaviors="clr-namespace:BikeRentalApplication.Behaviors"
         mc:Ignorable="d"
-        Title="Велопрокат" Height="600" Width="900"
+        WindowState="Maximized"
+        Title="ВелоGo" Height="700" Width="1000" MinHeight="540" MinWidth="1000"
         
         WindowStartupLocation="CenterScreen">
 
@@ -61,20 +62,19 @@
                         <ImageBrush ImageSource="/Resources/Logo.png" Stretch="Uniform"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock Text="Велопрокат" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="ВелоGo" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20,0,0,0">
                 <TextBlock Text="📞" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="0,0,0,2"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 123 45 67" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 111 22 33" Foreground="White" FontSize="10"/>
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
                 <Button Content="Заказы" Style="{StaticResource LinkButtonStyle}" Command="{Binding SwitchCommand}"/>
-                <Button Content="Бонусы" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenBonusesWindowCommand}"/>
-                <Button Content="Карта" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenMapWindowCommand}"/>
-                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0"/>
+                <Button Content="История" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenHistoryWindow}"/>
+                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAuthWindow}" Margin="10,0"/>
             </StackPanel>
         </Grid>
 
@@ -116,7 +116,7 @@
                                     <Image Source="{Binding ImagePath}" Height="250" Stretch="UniformToFill" Margin="0,0,0,10"/>
                                     <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
                                     <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxHeight="60" Margin="0,5,0,5" TextAlignment="Center"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0:C}'}" FontSize="14" Foreground="DarkGreen" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0} Br/час'}" FontSize="14" Foreground="DarkGreen" TextAlignment="Center"/>
                                     <Button Content="Забронировать"
                                             Command="{Binding DataContext.OpenBikeBookingWindow, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
@@ -174,19 +174,17 @@
                         <ImageBrush ImageSource="/Resources/Logo.png" Stretch="Uniform"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock Text="Велопрокат" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="ВелоGo" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20,0,0,0">
                 <TextBlock Text="📞" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="0,0,0,2"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
-                <TextBlock Text="+375 (29) XXX XX XX" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 123 45 67" Foreground="White" FontSize="10"/>
+                <TextBlock Text="+375 (29) 111 22 33" Foreground="White" FontSize="10"/>
             </StackPanel>
             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
                 <Button Content="Главная" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding SwitchCommand}"/>
-                <Button Content="Бонусы" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenBonusesWindowCommand}"/>
-                <Button Content="Карта" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenMapWindowCommand}"/>
                 <Button Content="История" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenHistoryWindow}"/>
-                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Margin="10,0" Command="{Binding OpenProfileWindowCommand}"/>
+                <Button Content="Выйти" Style="{StaticResource LinkButtonStyle}" Command="{Binding OpenAuthWindow}" Margin="10,0"/>
             </StackPanel>
         </Grid>
 
@@ -231,16 +229,11 @@
                                         </TextBlock>
                                         <TextBlock Text="{Binding FormattedPrice, Mode=OneWay}" FontSize="14" FontWeight="Bold" Margin="0,5,0,3" Visibility="{Binding PriceVisibility, Mode=OneWay}"/>
                                     </StackPanel>
-                                    <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                                         <Button Content="Отменить бронь"
                                                 Command="{Binding DataContext.CancelBookingCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}"
                                                 Background="#D9534F" Foreground="White"
-                                                Padding="10,5" Margin="0,5,0,0" Width="130" Cursor="Hand"/>
-                                        <Button Content="Подробнее"
-                                                Command="{Binding DataContext.ViewBookingDetailsCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding}"
-                                                Background="#5BC0DE" Foreground="White"
                                                 Padding="10,5" Margin="0,5,0,0" Width="130" Cursor="Hand"/>
                                     </StackPanel>
                                 </Grid>
@@ -249,6 +242,14 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+            <TextBlock Text="Ваша история пуста!"
+              FontSize="18"
+              FontWeight="Bold"
+              Foreground="Gray"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Margin="20"
+              Visibility="{Binding IsHistoryEmpty, Converter={StaticResource BoolToVisibilityConverter}}"/>        
 
             <Grid Background="#99FFFFFF"
                   Visibility="{Binding IsLoadingBookings, Converter={StaticResource BoolToVisibilityConverter}}">
