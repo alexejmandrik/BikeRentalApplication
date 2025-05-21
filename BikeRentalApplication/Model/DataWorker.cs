@@ -326,7 +326,7 @@ namespace BikeRentalApplication.Model
 
             if (now < booking.StartDateTime)
                 newStatus = "Забронировано";
-            else if (now >= booking.StartDateTime && now <= booking.EndDateTime)
+            else if (now >= booking.StartDateTime && now <= booking.EndDateTime) 
                 newStatus = "Активно";
             else
                 newStatus = "Завершено";

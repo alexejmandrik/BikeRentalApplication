@@ -190,7 +190,7 @@ namespace BikeRentalApplication.ViewModel
         public RelayCommand OpenAdminBikeWindow => openAdminBikeWindow ??= new RelayCommand(obj => OpenAdminBikeWindowMethod());
         public RelayCommand OpenAdminCommentsWindow => openAdminCommentsWindow ??= new RelayCommand(obj => OpenAdminCommentsWindowMethod());
 
-        public void SetCenterPositionAndOpen(Window window)
+        public void SetCenterPositionAndOpen(Window window) 
         {
             window.Owner = Application.Current.MainWindow;
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -264,8 +264,8 @@ namespace BikeRentalApplication.ViewModel
             finally
             {
                 IsLoading = false;
-            }
-        }
+            } 
+        } 
 
         private void ApplySortingAndFiltering()
         {
